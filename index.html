@@ -70,7 +70,7 @@
                 <h1 class="text-xl font-extrabold tracking-tight text-white">IANNUCCI S.R.L.</h1>
                 <p class="text-xs text-blue-400 font-bold uppercase tracking-wider">Foglio di Viaggio Digitale</p>
             </div>
-            <!-- Bottone Inizio Viaggio (In Alto, ben isolato) -->
+            <!-- Bottone Inizio Viaggio -->
             <button onclick="confermaInizioViaggio()" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-xs px-3.5 py-2 rounded-xl font-bold transition-all active:scale-95 flex items-center gap-1.5">
                 🚀 INIZIA TOUR
             </button>
@@ -148,24 +148,18 @@
             </div>
         </div>
 
-        <!-- SCHEDA 4: SPESE DEL GIORNO (SOLO QUELLE RICHIESTE) -->
+        <!-- SCHEDA 4: SPESE DEL GIORNO (CON GASOLIO E ADBLUE DUALE) -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 💶 Spese di Giornata
             </h3>
             <div class="space-y-3">
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Parcheggi (€)</label>
-                        <input type="number" step="0.01" id="input_parcheggio" placeholder="0.00" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3 py-2.5 text-white text-sm font-semibold">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">AdBlue (€)</label>
-                        <input type="number" step="0.01" id="input_adblue" placeholder="0.00" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3 py-2.5 text-white text-sm font-semibold">
-                    </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Parcheggi (€)</label>
+                    <input type="number" step="0.01" id="input_parcheggio" placeholder="0.00" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-blue-500 transition-all text-sm font-semibold">
                 </div>
 
-                <!-- Carburante con dettagli avanzati e calcolo integrato -->
+                <!-- Carburante Gasolio con dettagli avanzati e calcolo integrato -->
                 <div class="bg-slate-800/40 p-3 rounded-xl border border-slate-700/40 space-y-2">
                     <span class="text-[11px] font-extrabold text-amber-400 uppercase tracking-wider block">⛽ Rifornimento Gasolio</span>
                     <div class="grid grid-cols-2 gap-2">
@@ -179,7 +173,25 @@
                         </div>
                     </div>
                     <div id="badge_gasolio_calc" class="text-right text-[10px] text-slate-400 font-semibold">
-                        Totale Rifornimento: € 0,00
+                        Totale Gasolio: € 0,00
+                    </div>
+                </div>
+
+                <!-- Rifornimento AdBlue (CONVERTITO IN FORMATO COMPILABILE COME IL GASOLIO) -->
+                <div class="bg-slate-800/40 p-3 rounded-xl border border-slate-700/40 space-y-2">
+                    <span class="text-[11px] font-extrabold text-blue-400 uppercase tracking-wider block">💧 Rifornimento AdBlue</span>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] text-slate-400 uppercase mb-1">Litri AdBlue</label>
+                            <input type="number" step="0.01" id="input_adblue_litri" placeholder="0" class="w-full bg-slate-800 border border-slate-700/60 rounded-lg px-2.5 py-2 text-white text-xs font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-400 uppercase mb-1">Prezzo al Litro (€)</label>
+                            <input type="number" step="0.001" id="input_adblue_prezzo" placeholder="0.000" class="w-full bg-slate-800 border border-slate-700/60 rounded-lg px-2.5 py-2 text-white text-xs font-semibold">
+                        </div>
+                    </div>
+                    <div id="badge_adblue_calc" class="text-right text-[10px] text-slate-400 font-semibold">
+                        Totale AdBlue: € 0,00
                     </div>
                 </div>
 
@@ -212,7 +224,7 @@
             </div>
         </div>
 
-        <!-- BOTTONI DI AZIONE (Pulsanti touch-friendly e ben distanziati) -->
+        <!-- BOTTONI DI AZIONE -->
         <div class="space-y-3">
             <!-- Pulsante Genera PDF del Giorno -->
             <button onclick="generaStampaGiornata()" class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-extrabold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm uppercase">
@@ -354,30 +366,40 @@
         </div>
     </div>
 
-    <!-- Popup Fine Viaggio -->
-    <div id="modal_fine_viaggio" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 no-print">
+    <!-- Popup Generico Alert -->
+    <div id="modal_custom_alert" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 no-print">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-xs text-center shadow-2xl">
-            <div class="w-12 h-12 bg-red-500/20 text-red-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">🛑</div>
-            <h3 class="text-white font-bold text-lg mb-1">Tour Concluso!</h3>
-            <p class="text-xs text-slate-300 mb-6">Il foglio è stato completamente ripulito. I dati di conducente e mezzo sono pronti per il prossimo tour.</p>
-            <button onclick="chiudiModal('modal_fine_viaggio')" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-xl transition-all text-xs uppercase">
-                Chiudi
+            <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">⚠️</div>
+            <h3 id="alert_title" class="text-white font-bold text-lg mb-1">Attenzione</h3>
+            <p id="alert_message" class="text-xs text-slate-300 mb-6">Messaggio di errore.</p>
+            <button onclick="chiudiModal('modal_custom_alert')" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl transition-all text-xs uppercase">
+                Ok, ho capito
             </button>
+        </div>
+    </div>
+
+    <!-- Popup Generico Confirm -->
+    <div id="modal_custom_confirm" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 no-print">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-xs text-center shadow-2xl">
+            <div id="confirm_icon" class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">❓</div>
+            <h3 id="confirm_title" class="text-white font-bold text-lg mb-1">Sei sicuro?</h3>
+            <p id="confirm_message" class="text-xs text-slate-300 mb-6">Operazione.</p>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="chiudiModal('modal_custom_confirm')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl transition-all text-xs uppercase">
+                    No, Annulla
+                </button>
+                <button id="btn_confirm_proceed" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all text-xs uppercase">
+                    Sì, Procedi
+                </button>
+            </div>
         </div>
     </div>
 
 
     <!-- LOGICA DI PROGRAMMAZIONE LOGICA E INTERATTIVA -->
     <script>
-        // Array statico delle voci di spesa rimanenti dopo la rimozione dei 3 elementi
-        const vociSpesa = [
-            { id: "parcheggio", nome: "Parcheggio Bus / Checkpoint" },
-            { id: "adblue", nome: "Rifornimento AdBlue" },
-            { id: "gasolio", nome: "Rifornimento Gasolio" }, // Gestito con litri e prezzo
-            { id: "pasti", nome: "Pasti Autista / Vitto" },
-            { id: "hotel", nome: "Hotel / Pernottamento" },
-            { id: "varie", nome: "Spese Varie / Extra" }
-        ];
+        // Callback globale per la gestione dei popup di conferma
+        let globalConfirmCallback = null;
 
         // Caricamento e configurazione iniziale dell'applicazione
         window.addEventListener("DOMContentLoaded", () => {
@@ -409,8 +431,12 @@
         function collegaCalcoliInTempoReale() {
             const kmPartenza = document.getElementById("input_km_partenza");
             const kmArrivo = document.getElementById("input_km_arrivo");
+            
             const litriGasolio = document.getElementById("input_gasolio_litri");
             const prezzoGasolio = document.getElementById("input_gasolio_prezzo");
+
+            const litriAdblue = document.getElementById("input_adblue_litri");
+            const prezzoAdblue = document.getElementById("input_adblue_prezzo");
 
             const rilevaCambiamenti = () => {
                 // Calcolo Chilometri
@@ -419,11 +445,17 @@
                 const totKM = Math.max(0, arr - part);
                 document.getElementById("badge_km_totali").innerText = `${totKM.toLocaleString('it-IT')} KM Percorsi Oggi`;
 
-                // Calcolo Rifornimento
-                const lit = parseFloat(litriGasolio.value) || 0;
-                const prc = parseFloat(prezzoGasolio.value) || 0;
-                const totGasolio = Math.round(lit * prc * 100) / 100;
-                document.getElementById("badge_gasolio_calc").innerText = `Totale Rifornimento: € ${totGasolio.toFixed(2).replace('.', ',')}`;
+                // Calcolo Rifornimento Gasolio
+                const litG = parseFloat(litriGasolio.value) || 0;
+                const prcG = parseFloat(prezzoGasolio.value) || 0;
+                const totGasolio = Math.round(litG * prcG * 100) / 100;
+                document.getElementById("badge_gasolio_calc").innerText = `Totale Gasolio: € ${totGasolio.toFixed(2).replace('.', ',')}`;
+
+                // Calcolo Rifornimento AdBlue
+                const litA = parseFloat(litriAdblue.value) || 0;
+                const prcA = parseFloat(prezzoAdblue.value) || 0;
+                const totAdblue = Math.round(litA * prcA * 100) / 100;
+                document.getElementById("badge_adblue_calc").innerText = `Totale AdBlue: € ${totAdblue.toFixed(2).replace('.', ',')}`;
 
                 salvaDatiLocalStorage();
             };
@@ -432,16 +464,20 @@
             kmArrivo.addEventListener("input", rilevaCambiamenti);
             litriGasolio.addEventListener("input", rilevaCambiamenti);
             prezzoGasolio.addEventListener("input", rilevaCambiamenti);
+            litriAdblue.addEventListener("input", rilevaCambiamenti);
+            prezzoAdblue.addEventListener("input", rilevaCambiamenti);
 
             // Per gli altri input numerici generici delle spese, salva su input
-            const altreSpese = ["input_parcheggio", "input_adblue", "input_pasti", "input_hotel", "input_varie"];
+            const altreSpese = ["input_parcheggio", "input_pasti", "input_hotel", "input_varie"];
             altreSpese.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.addEventListener("input", salvaDatiLocalStorage);
             });
+            
+            document.getElementById("opt_hide_zero").addEventListener("change", salvaDatiLocalStorage);
         }
 
-        // Salva istantaneamente l'intero stato dell'applicazione
+        // Salva istantaneamente l'intero stato dell'applicazione nel telefono
         function salvaDatiLocalStorage() {
             try {
                 localStorage.setItem("fv_autista", document.getElementById("input_autista").value);
@@ -456,9 +492,10 @@
 
                 // Spese
                 localStorage.setItem("fv_spesa_parcheggio", document.getElementById("input_parcheggio").value);
-                localStorage.setItem("fv_spesa_adblue", document.getElementById("input_adblue").value);
                 localStorage.setItem("fv_spesa_gasolio_litri", document.getElementById("input_gasolio_litri").value);
                 localStorage.setItem("fv_spesa_gasolio_prezzo", document.getElementById("input_gasolio_prezzo").value);
+                localStorage.setItem("fv_spesa_adblue_litri", document.getElementById("input_adblue_litri").value);
+                localStorage.setItem("fv_spesa_adblue_prezzo", document.getElementById("input_adblue_prezzo").value);
                 localStorage.setItem("fv_spesa_pasti", document.getElementById("input_pasti").value);
                 localStorage.setItem("fv_spesa_hotel", document.getElementById("input_hotel").value);
                 localStorage.setItem("fv_spesa_varie", document.getElementById("input_varie").value);
@@ -484,9 +521,10 @@
 
                 // Spese
                 document.getElementById("input_parcheggio").value = localStorage.getItem("fv_spesa_parcheggio") || "";
-                document.getElementById("input_adblue").value = localStorage.getItem("fv_spesa_adblue") || "";
                 document.getElementById("input_gasolio_litri").value = localStorage.getItem("fv_spesa_gasolio_litri") || "";
                 document.getElementById("input_gasolio_prezzo").value = localStorage.getItem("fv_spesa_gasolio_prezzo") || "";
+                document.getElementById("input_adblue_litri").value = localStorage.getItem("fv_spesa_adblue_litri") || "";
+                document.getElementById("input_adblue_prezzo").value = localStorage.getItem("fv_spesa_adblue_prezzo") || "";
                 document.getElementById("input_pasti").value = localStorage.getItem("fv_spesa_pasti") || "";
                 document.getElementById("input_hotel").value = localStorage.getItem("fv_spesa_hotel") || "";
                 document.getElementById("input_varie").value = localStorage.getItem("fv_spesa_varie") || "";
@@ -500,30 +538,66 @@
             }
         }
 
-        // AZIONE: INIZIO NUOVO VIAGGIO (CONFIRMATION MODAL NATIVO)
-        function confermaInizioViaggio() {
-            const procedi = confirm("Vuoi iniziare un nuovo viaggio? Verranno ripulite le tratte, il cliente, i chilometri e le spese correnti. Il nome autista, il bus e la targa rimarranno memorizzati.");
-            if (procedi) {
-                document.getElementById("input_cliente").value = "";
-                document.getElementById("input_viaggio").value = "";
-                document.getElementById("input_tratta_inizio").value = "";
-                document.getElementById("input_tratta_fine").value = "";
-                document.getElementById("input_km_partenza").value = "";
-                document.getElementById("input_km_arrivo").value = "";
+        // Mostra un popup di allerta personalizzato (No Native Alert)
+        function apriAlert(titolo, messaggio) {
+            document.getElementById("alert_title").innerText = titolo;
+            document.getElementById("alert_message").innerText = messaggio;
+            document.getElementById("modal_custom_alert").classList.remove("hidden");
+        }
 
-                // Resetta spese
-                document.getElementById("input_parcheggio").value = "";
-                document.getElementById("input_adblue").value = "";
-                document.getElementById("input_gasolio_litri").value = "";
-                document.getElementById("input_gasolio_prezzo").value = "";
-                document.getElementById("input_pasti").value = "";
-                document.getElementById("input_hotel").value = "";
-                document.getElementById("input_varie").value = "";
+        // Mostra un popup di conferma personalizzato (No Native Confirm)
+        function apriConfirm(icona, titolo, messaggio, callback) {
+            document.getElementById("confirm_icon").innerText = icona;
+            document.getElementById("confirm_title").innerText = titolo;
+            document.getElementById("confirm_message").innerText = messaggio;
+            globalConfirmCallback = callback;
+            document.getElementById("modal_custom_confirm").classList.remove("hidden");
+        }
 
-                salvaDatiLocalStorage();
-                document.getElementById("badge_km_totali").innerText = "0 KM Percorsi Oggi";
-                document.getElementById("badge_gasolio_calc").innerText = "Totale Rifornimento: € 0,00";
+        // Gestione del click di conferma nel popup
+        document.getElementById("btn_confirm_proceed").addEventListener("click", () => {
+            document.getElementById("modal_custom_confirm").classList.add("hidden");
+            if (globalConfirmCallback) {
+                globalConfirmCallback();
+                globalConfirmCallback = null;
             }
+        });
+
+        // Chiudi un determinato modal
+        function chiudiModal(id) {
+            document.getElementById(id).classList.add("hidden");
+        }
+
+        // AZIONE: INIZIO NUOVO VIAGGIO (CONFIRMATION MODAL CUSTOM)
+        function confermaInizioViaggio() {
+            apriConfirm(
+                "🚀",
+                "Nuovo Viaggio?",
+                "Vuoi iniziare un nuovo viaggio? Verranno ripulite le tratte, il cliente, i chilometri e le spese correnti. Il nome autista, il bus e la targa rimarranno memorizzati sul tuo telefono.",
+                () => {
+                    document.getElementById("input_cliente").value = "";
+                    document.getElementById("input_viaggio").value = "";
+                    document.getElementById("input_tratta_inizio").value = "";
+                    document.getElementById("input_tratta_fine").value = "";
+                    document.getElementById("input_km_partenza").value = "";
+                    document.getElementById("input_km_arrivo").value = "";
+
+                    // Resetta spese
+                    document.getElementById("input_parcheggio").value = "";
+                    document.getElementById("input_gasolio_litri").value = "";
+                    document.getElementById("input_gasolio_prezzo").value = "";
+                    document.getElementById("input_adblue_litri").value = "";
+                    document.getElementById("input_adblue_prezzo").value = "";
+                    document.getElementById("input_pasti").value = "";
+                    document.getElementById("input_hotel").value = "";
+                    document.getElementById("input_varie").value = "";
+
+                    salvaDatiLocalStorage();
+                    document.getElementById("badge_km_totali").innerText = "0 KM Percorsi Oggi";
+                    document.getElementById("badge_gasolio_calc").innerText = "Totale Gasolio: € 0,00";
+                    document.getElementById("badge_adblue_calc").innerText = "Totale AdBlue: € 0,00";
+                }
+            );
         }
 
         // AZIONE: GIORNO SUCCESSIVO (TAPPA MULTI-GIORNO)
@@ -532,11 +606,11 @@
             const fineTratta = document.getElementById("input_tratta_fine").value;
 
             if (kmArrivo === 0) {
-                alert("Attenzione: Inserisci il KM Arrivo di oggi prima di passare al giorno successivo!");
+                apriAlert("Attenzione!", "Inserisci il KM Arrivo di oggi prima di passare al giorno successivo!");
                 return;
             }
             if (!fineTratta.trim()) {
-                alert("Attenzione: Inserisci la località di Fine Tratta di oggi prima di passare al giorno successivo!");
+                apriAlert("Attenzione!", "Inserisci la località di Fine Tratta di oggi prima di passare al giorno successivo!");
                 return;
             }
 
@@ -549,9 +623,10 @@
 
             // Azzera tutte le spese quotidiane
             document.getElementById("input_parcheggio").value = "";
-            document.getElementById("input_adblue").value = "";
             document.getElementById("input_gasolio_litri").value = "";
             document.getElementById("input_gasolio_prezzo").value = "";
+            document.getElementById("input_adblue_litri").value = "";
+            document.getElementById("input_adblue_prezzo").value = "";
             document.getElementById("input_pasti").value = "";
             document.getElementById("input_hotel").value = "";
             document.getElementById("input_varie").value = "";
@@ -559,39 +634,46 @@
             // Salva lo stato e aggiorna i grafici
             salvaDatiLocalStorage();
             document.getElementById("badge_km_totali").innerText = "0 KM Percorsi Oggi";
-            document.getElementById("badge_gasolio_calc").innerText = "Totale Rifornimento: € 0,00";
+            document.getElementById("badge_gasolio_calc").innerText = "Totale Gasolio: € 0,00";
+            document.getElementById("badge_adblue_calc").innerText = "Totale AdBlue: € 0,00";
 
-            // Mostra il popup grafico
-            mostraModal("modal_giorno_successivo");
+            // Mostra il popup grafico di successo
+            document.getElementById("modal_giorno_successivo").classList.remove("hidden");
         }
 
         // AZIONE: FINE VIAGGIO (TABULA RASA COMPLETA DI CHIUSURA CONTRATTO)
         function confermaFineViaggio() {
-            const procedi = confirm("Sei sicuro di voler chiudere definitivamente il tour? Tutte le tratte, i chilometri, il cliente e le spese verranno azzerate. Solo i dati del conducente e del mezzo rimarranno salvati sul telefono.");
-            if (procedi) {
-                // Svuota tutto tranne Autista, Bus e Targa
-                document.getElementById("input_cliente").value = "";
-                document.getElementById("input_viaggio").value = "";
-                document.getElementById("input_tratta_inizio").value = "";
-                document.getElementById("input_tratta_fine").value = "";
-                document.getElementById("input_km_partenza").value = "";
-                document.getElementById("input_km_arrivo").value = "";
+            apriConfirm(
+                "🛑",
+                "Sei Sicuro?",
+                "Sei sicuro di voler chiudere definitivamente il tour? Tutte le tratte, i chilometri, il cliente e le spese verranno azzerate. Solo i dati del conducente e del mezzo rimarranno salvati sul tuo telefono.",
+                () => {
+                    // Svuota tutto tranne Autista, Bus e Targa
+                    document.getElementById("input_cliente").value = "";
+                    document.getElementById("input_viaggio").value = "";
+                    document.getElementById("input_tratta_inizio").value = "";
+                    document.getElementById("input_tratta_fine").value = "";
+                    document.getElementById("input_km_partenza").value = "";
+                    document.getElementById("input_km_arrivo").value = "";
 
-                // Azzera spese
-                document.getElementById("input_parcheggio").value = "";
-                document.getElementById("input_adblue").value = "";
-                document.getElementById("input_gasolio_litri").value = "";
-                document.getElementById("input_gasolio_prezzo").value = "";
-                document.getElementById("input_pasti").value = "";
-                document.getElementById("input_hotel").value = "";
-                document.getElementById("input_varie").value = "";
+                    // Azzera spese
+                    document.getElementById("input_parcheggio").value = "";
+                    document.getElementById("input_gasolio_litri").value = "";
+                    document.getElementById("input_gasolio_prezzo").value = "";
+                    document.getElementById("input_adblue_litri").value = "";
+                    document.getElementById("input_adblue_prezzo").value = "";
+                    document.getElementById("input_pasti").value = "";
+                    document.getElementById("input_hotel").value = "";
+                    document.getElementById("input_varie").value = "";
 
-                salvaDatiLocalStorage();
-                document.getElementById("badge_km_totali").innerText = "0 KM Percorsi Oggi";
-                document.getElementById("badge_gasolio_calc").innerText = "Totale Rifornimento: € 0,00";
+                    salvaDatiLocalStorage();
+                    document.getElementById("badge_km_totali").innerText = "0 KM Percorsi Oggi";
+                    document.getElementById("badge_gasolio_calc").innerText = "Totale Gasolio: € 0,00";
+                    document.getElementById("badge_adblue_calc").innerText = "Totale AdBlue: € 0,00";
 
-                mostraModal("modal_fine_viaggio");
-            }
+                    apriAlert("Tour Concluso", "Il foglio di viaggio è stato resettato. I dati di conducente e del bus rimangono pronti per il tuo prossimo tour.");
+                }
+            );
         }
 
         // FUNZIONE: GENERAZIONE E STAMPA DEL PDF FISICO
@@ -640,21 +722,24 @@
                 inserisciRigaSpesa(tbody, dataStringa, "Parcheggio Bus / Checkpoint", "Ticket parcheggio e ZTL città", valParcheggio);
             }
 
-            // 2. Spesa AdBlue
-            const valAdblue = parseFloat(document.getElementById("input_adblue").value) || 0;
-            if (!(optHideZero && valAdblue === 0)) {
-                sommaTotaleSpese += valAdblue;
-                inserisciRigaSpesa(tbody, dataStringa, "Rifornimento AdBlue", "Rifornimento additivo emissioni", valAdblue);
-            }
-
-            // 3. Spesa Gasolio (Carburante)
-            const litri = parseFloat(document.getElementById("input_gasolio_litri").value) || 0;
-            const prezzo = parseFloat(document.getElementById("input_gasolio_prezzo").value) || 0;
-            const valGasolio = Math.round(litri * prezzo * 100) / 100;
+            // 2. Spesa Gasolio (Carburante)
+            const litriG = parseFloat(document.getElementById("input_gasolio_litri").value) || 0;
+            const prezzoG = parseFloat(document.getElementById("input_gasolio_prezzo").value) || 0;
+            const valGasolio = Math.round(litriG * prezzoG * 100) / 100;
             if (!(optHideZero && valGasolio === 0)) {
                 sommaTotaleSpese += valGasolio;
-                const descGasolio = `Rifornimento carburante: ${litri} Lt @ ${prezzo.toFixed(3).replace('.', ',')} €/lt`;
+                const descGasolio = `Rifornimento carburante: ${litriG} Lt @ ${prezzoG.toFixed(3).replace('.', ',')} €/lt`;
                 inserisciRigaSpesa(tbody, dataStringa, "Rifornimento Gasolio", descGasolio, valGasolio);
+            }
+
+            // 3. Spesa AdBlue (DUALE CON LITRI E PREZZO AL LITRO)
+            const litriA = parseFloat(document.getElementById("input_adblue_litri").value) || 0;
+            const prezzoA = parseFloat(document.getElementById("input_adblue_prezzo").value) || 0;
+            const valAdblue = Math.round(litriA * prezzoA * 100) / 100;
+            if (!(optHideZero && valAdblue === 0)) {
+                sommaTotaleSpese += valAdblue;
+                const descAdblue = `Rifornimento additivo AdBlue: ${litriA} Lt @ ${prezzoA.toFixed(3).replace('.', ',')} €/lt`;
+                inserisciRigaSpesa(tbody, dataStringa, "Rifornimento AdBlue", descAdblue, valAdblue);
             }
 
             // 4. Spesa Pasti
@@ -680,7 +765,7 @@
 
             // Se la tabella è vuota, inserisci un avviso di spese non presenti
             if (tbody.innerHTML === "") {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center italic py-4">Nessuna spesa sostenuta nella data odierna</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center italic py-4 text-slate-800 font-medium">Nessuna spesa sostenuta nella data odierna</td></tr>`;
             }
 
             document.getElementById("pdf_val_totale_spese").innerText = `€ ${sommaTotaleSpese.toFixed(2).replace('.', ',')}`;
@@ -700,20 +785,12 @@
         function inserisciRigaSpesa(tbody, data, tipo, desc, importo) {
             const tr = document.createElement("tr");
             tr.innerHTML = `
-                <td class="text-center font-semibold">${data}</td>
-                <td class="font-bold">${tipo}</td>
-                <td class="text-slate-600 text-xs italic">${desc}</td>
-                <td class="text-right font-bold pr-1">€ ${importo.toFixed(2).replace('.', ',')}</td>
+                <td class="text-center font-semibold text-slate-900">${data}</td>
+                <td class="font-bold text-slate-900">${tipo}</td>
+                <td class="text-slate-700 text-xs italic">${desc}</td>
+                <td class="text-right font-bold text-slate-900 pr-1">€ ${importo.toFixed(2).replace('.', ',')}</td>
             `;
             tbody.appendChild(tr);
-        }
-
-        // Gestione Modal
-        function mostraModal(id) {
-            document.getElementById(id).classList.remove("hidden");
-        }
-        function chiudiModal(id) {
-            document.getElementById(id).classList.add("hidden");
         }
     </script>
 </body>
