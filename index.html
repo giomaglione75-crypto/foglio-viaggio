@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -6,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Iannucci S.R.L. - App Viaggio</title>
     
-    <!-- Icona dell'App incorporata in formato SVG (Sfondo blu e Bus bianco) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231e3a8a'/%3E%3Cpath d='M400 128H112c-26.5 0-48 21.5-48 48v224c0 17.7 14.3 32 32 32h16c8.8 0 16-7.2 16-16v-16h256v16c0 8.8 7.2 16 16 16h16c17.7 0 32-14.3 32-32V176c0-26.5-21.5-48-48-48zm-24 48v96H136v-96h240zM144 336c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm224 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z' fill='white'/%3E%3C/svg%3E">
     <link class="no-print" rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231e3a8a'/%3E%3Cpath d='M400 128H112c-26.5 0-48 21.5-48 48v224c0 17.7 14.3 32 32 32h16c8.8 0 16-7.2 16-16v-16h256v16c0 8.8 7.2 16 16 16h16c17.7 0 32-14.3 32-32V176c0-26.5-21.5-48-48-48zm-24 48v96H136v-96h240zM144 336c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm224 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z' fill='white'/%3E%3C/svg%3E">
 
-    <!-- Tailwind CSS per un design moderno, pulito e responsive -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -70,22 +67,18 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
 
-    <!-- INTERFACCIA APP MOBILE (INVISIBILE IN STAMPA) -->
     <div class="max-w-md mx-auto px-4 pt-6 pb-24 no-print">
         
-        <!-- Intestazione Superiore dell'App -->
         <div class="flex items-center justify-between mb-6">
             <div>
                 <h1 class="text-xl font-extrabold tracking-tight text-white">IANNUCCI S.R.L.</h1>
                 <p class="text-xs text-blue-400 font-bold uppercase tracking-wider">Foglio di Viaggio Digitale</p>
             </div>
-            <!-- Bottone Inizio Viaggio -->
             <button onclick="confermaInizioViaggio()" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-xs px-3.5 py-2 rounded-xl font-bold transition-all active:scale-95 flex items-center gap-1.5">
                 🚀 INIZIA TOUR
             </button>
         </div>
 
-        <!-- SCHEDA 1: PERSONALE E MEZZO -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 👤 Personale e Bus
@@ -112,7 +105,6 @@
             </div>
         </div>
 
-        <!-- SCHEDA 2: INFORMAZIONI SERVIZIO -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 🗺️ Tratta e Servizio
@@ -145,7 +137,6 @@
             </div>
         </div>
 
-        <!-- SCHEDA 3: CHILOMETRI GIORNALIERI -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 🗺️ Rilevamento KM
@@ -165,23 +156,18 @@
             </div>
         </div>
 
-        <!-- SCHEDA 4: SPESE DI GIORNATA (RIPROGETTATA DINAMICA PER PARCHEGGI, ZTL, TASSE) -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 💶 Spese di Giornata
             </h3>
             
             <div class="space-y-3">
-                <!-- Sezione Dinamica delle Spese a riga multipla -->
                 <div class="bg-slate-950/40 p-3 rounded-xl border border-slate-800 space-y-3">
                     <span class="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider block">🚗 Registro Parcheggi, ZTL e Tasse Doganali</span>
                     
-                    <!-- Contenitore delle righe spese generate dinamicamente -->
                     <div id="container_spese_dinamiche" class="space-y-2">
-                        <!-- Generato dinamicamente via Javascript -->
-                    </div>
+                        </div>
 
-                    <!-- Pulsanti di aggiunta rapida -->
                     <div class="grid grid-cols-3 gap-1.5 pt-1">
                         <button onclick="aggiungiSpesaDinamica('PARCHEGGIO', '', '')" class="bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-500/20 py-2 rounded-lg text-[10px] font-extrabold transition-all uppercase">
                             ➕ Parcheggio
@@ -195,7 +181,6 @@
                     </div>
                 </div>
 
-                <!-- Carburante Gasolio con Preset Carte -->
                 <div class="bg-slate-800/40 p-3 rounded-xl border border-slate-700/40 space-y-2">
                     <span class="text-[11px] font-extrabold text-amber-400 uppercase tracking-wider block">⛽ Rifornimento Gasolio</span>
                     <div class="grid grid-cols-2 gap-2">
@@ -227,7 +212,6 @@
                     </div>
                 </div>
 
-                <!-- Rifornimento AdBlue con Preset Carte -->
                 <div class="bg-slate-800/40 p-3 rounded-xl border border-slate-700/40 space-y-2">
                     <span class="text-[11px] font-extrabold text-blue-400 uppercase tracking-wider block">💧 Rifornimento AdBlue</span>
                     <div class="grid grid-cols-2 gap-2">
@@ -276,7 +260,6 @@
             </div>
         </div>
 
-        <!-- SCHEDA 4.2: FOTO SCONTRINI ILLIMITATE -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 📸 Scontrini e Ricevute
@@ -285,14 +268,11 @@
                 <p class="text-[11px] text-slate-400">Scatta o aggiungi foto illimitate degli scontrini per questo foglio giornaliero.</p>
                 <input type="file" id="input_foto_scontrino" accept="image/*" multiple onchange="caricaFotoScontrini()" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 cursor-pointer">
                 
-                <!-- Galleria di anteprima visiva degli scontrini caricati oggi -->
                 <div id="container_anteprima_foto" class="grid grid-cols-3 gap-2 pt-2">
-                    <!-- Dinamico -->
-                </div>
+                    </div>
             </div>
         </div>
 
-        <!-- SCHEDA 5: CONFIGURAZIONE STAMPA PDF -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-5 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3">⚙️ Impostazioni PDF</h3>
             <div class="flex items-center justify-between">
@@ -304,19 +284,15 @@
             </div>
         </div>
 
-        <!-- BOTTONI DI AZIONE -->
         <div class="space-y-3">
-            <!-- Pulsante Genera PDF del Giorno -->
             <button onclick="generaStampaGiornata()" class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-extrabold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm uppercase">
                 📄 GENERA E SALVA PDF DI GIORNATA
             </button>
 
             <div class="grid grid-cols-2 gap-3 mt-2">
-                <!-- Pulsante Giorno Successivo -->
                 <button onclick="giornoSuccessivo()" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/20 active:scale-[0.98] font-bold py-3.5 rounded-xl transition-all text-xs uppercase flex items-center justify-center gap-1">
                     ➡️ Giorno Successivo
                 </button>
-                <!-- Pulsante Fine Viaggio -->
                 <button onclick="confermaFineViaggio()" class="bg-red-950/30 hover:bg-red-900/40 text-red-400 border border-red-500/20 active:scale-[0.98] font-bold py-3.5 rounded-xl transition-all text-xs uppercase flex items-center justify-center gap-1">
                     🛑 CHIUDI TOUR
                 </button>
@@ -325,10 +301,6 @@
 
     </div>
 
-    <!-- ------------------------------------------------------------------- -->
-    <!-- STRUTTURA DEL DOCUMENTO FINALE A4 DA STAMPARE (HIDDEN IN APP SCREEN) -->
-    <!-- Modificato: Rimosso blocco Firma Autista                            -->
-    <!-- ------------------------------------------------------------------- -->
     <div id="pdf-template" class="hidden">
         <div class="flex justify-between items-end border-b-2 border-slate-800 pb-3 mb-4">
             <div>
@@ -348,7 +320,6 @@
             Foglio di Viaggio / Ordine di Servizio — Resoconto del <span id="pdf_data_foglio">-</span>
         </div>
 
-        <!-- Dati Servizio Generali -->
         <table class="w-full mb-3">
             <tr>
                 <td class="w-1/2">
@@ -388,7 +359,6 @@
             </tr>
         </table>
 
-        <!-- Tabella Contachilometri -->
         <table class="w-full mb-4">
             <thead>
                 <tr>
@@ -406,7 +376,6 @@
             </tbody>
         </table>
 
-        <!-- Tabella Rendiconto Economico Spese -->
         <div class="mt-4">
             <span class="block text-[9pt] font-extrabold uppercase tracking-wider text-slate-800 mb-1">Rendiconto Spese di Viaggio</span>
             <table class="w-full">
@@ -419,8 +388,7 @@
                     </tr>
                 </thead>
                 <tbody id="pdf_spese_tbody">
-                    <!-- Compilato dinamicamente via JS -->
-                </tbody>
+                    </tbody>
                 <tfoot>
                     <tr class="font-extrabold text-[10.5pt]" style="background-color: #e2e8f0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
                         <td colspan="3" class="text-right">TOTALE SPESE DEL GIORNO:</td>
@@ -430,18 +398,13 @@
             </table>
         </div>
 
-        <!-- SEZIONE ALLEGATI SCONTRINI NEL PDF -->
-        <div id="pdf_sezione_scontrini" class="mt-8">
+        <div id="pdf_sezione_scontrini" class="hidden mt-8">
             <span class="block text-[9pt] font-extrabold uppercase tracking-wider text-slate-800 border-b border-slate-300 pb-1 mb-3">Allegati Ricevute e Scontrini</span>
             <div id="pdf_galleria_scontrini" class="grid grid-cols-2 gap-4">
-                <!-- Immagini scontrini renderizzate a risoluzione pulita -->
-            </div>
+                </div>
         </div>
     </div>
 
-    <!-- ------------------------------------------------------------------- -->
-    <!-- TEMPLATE: PDF RESOCONTO GENERALE DI FINE TOUR                       -->
-    <!-- ------------------------------------------------------------------- -->
     <div id="pdf-summary-template" class="hidden">
         <div class="flex justify-between items-end border-b-2 border-slate-800 pb-3 mb-4">
             <div>
@@ -471,8 +434,7 @@
                     </tr>
                 </thead>
                 <tbody id="summary_km_tbody">
-                    <!-- Compilato dinamicamente -->
-                </tbody>
+                    </tbody>
             </table>
         </div>
 
@@ -486,15 +448,11 @@
                     </tr>
                 </thead>
                 <tbody id="summary_spese_tbody">
-                    <!-- Compilato dinamicamente per macrovoci -->
-                </tbody>
+                    </tbody>
             </table>
         </div>
     </div>
 
-
-    <!-- DIALOGHI E POPUP INFORMATIVI CUSTOM (NO-PRINT) -->
-    <!-- Popup Giorno Successivo -->
     <div id="modal_giorno_successivo" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 no-print">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-xs text-center shadow-2xl">
             <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">➡️</div>
@@ -506,7 +464,6 @@
         </div>
     </div>
 
-    <!-- Popup Generico Alert -->
     <div id="modal_custom_alert" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 no-print">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-xs text-center shadow-2xl">
             <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">⚠️</div>
@@ -518,7 +475,6 @@
         </div>
     </div>
 
-    <!-- Popup Generico Confirm -->
     <div id="modal_custom_confirm" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 no-print">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-xs text-center shadow-2xl">
             <div id="confirm_icon" class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">❓</div>
@@ -535,23 +491,14 @@
         </div>
     </div>
 
-
-    <!-- LOGICA DI PROGRAMMAZIONE LOGICA E INTERATTIVA -->
     <script>
-        // Callback globale per la gestione dei popup di conferma
         let globalConfirmCallback = null;
         
-        // Memoria locale del Tour corrente per gestire il riepilogo multi-giorno
         let storicoTourGiorni = [];
         let fotoScontriniCorrenti = [];
-        
-        // Array dinamico delle spese speciali del giorno correntemente editato
-        // Ogni elemento: { id: Date.now(), tipo: 'PARCHEGGIO' | 'ZTL' | 'TASSA/FRONTIERA', localita: '', importo: 0 }
         let registroSpeseDinamiche = [];
 
-        // Caricamento e configurazione iniziale dell'applicazione
         window.addEventListener("DOMContentLoaded", () => {
-            // Imposta data odierna automatica (Parametro 1)
             const inputData = document.getElementById("input_data");
             if (inputData && !inputData.value) {
                 const oggi = new Date();
@@ -564,7 +511,6 @@
             renderSpeseDinamiche();
         });
 
-        // Forza la conversione in maiuscolo quando si esce dalla casella (Evita il blocco dello SPAZIO)
         function attivazioneMaiuscoloIstantaneo() {
             const inputTesto = ["input_autista", "input_bus", "input_targa", "input_cliente", "input_viaggio", "input_tratta_inizio", "input_tratta_fine", "input_carta_gasolio_man", "input_carta_adblue_man"];
             inputTesto.forEach(id => {
@@ -582,20 +528,18 @@
             });
         }
 
-        // Dinamicizzazione del titolo del documento per agevolare il naming salvataggio (Parametro 7)
         function aggiornaTitoloDocumento() {
             const dataVal = document.getElementById("input_data").value;
             const agenzia = document.getElementById("input_cliente").value.trim() || "PRATICA";
             const autista = document.getElementById("input_autista").value.trim() || "AUTISTA";
             
             if (dataVal) {
-                const partiData = dataVal.split("-"); // yyyy-mm-dd
+                const partiData = dataVal.split("-");
                 const dataFormattata = `${partiData[2]}-${partiData[1]}-${partiData[0].substring(2)}`;
                 document.title = `${dataFormattata}-${agenzia}-${autista}`.toLowerCase().replace(/\s+/g, '-');
             }
         }
 
-        // Gestione visibilità campi manuali per carte carburante
         function gestisciCarta(tipo) {
             const select = document.getElementById(`select_carta_${tipo}`);
             const inputMan = document.getElementById(`input_carta_${tipo}_man`);
@@ -608,11 +552,11 @@
             salvaDatiLocalStorage();
         }
 
-        // --- SISTEMA DI AGGIUNTA E GESTIONE SPESE DINAMICHE ---
+        // --- GESTIONE SPESE DINAMICHE ---
         function aggiungiSpesaDinamica(tipo, localita = "", importo = "") {
             const nuovaSpesa = {
-                id: Date.now() + Math.random().toString(36).substring(2, 7), // ID unico di sicurezza
-                tipo: tipo, // 'PARCHEGGIO' | 'ZTL' | 'TASSA/FRONTIERA'
+                id: Date.now() + Math.random().toString(36).substring(2, 7),
+                tipo: tipo,
                 localita: localita,
                 importo: importo
             };
@@ -652,7 +596,6 @@
                 const div = document.createElement("div");
                 div.className = "flex gap-2 items-center bg-slate-900 p-2.5 rounded-xl border border-slate-800 shadow-md";
                 
-                // Imposta colore etichetta in base al tipo
                 let badgeColor = "text-blue-400 bg-blue-500/10 border-blue-500/20";
                 if (spesa.tipo === "ZTL") badgeColor = "text-purple-400 bg-purple-500/10 border-purple-500/20";
                 if (spesa.tipo === "TASSA/FRONTIERA") badgeColor = "text-amber-400 bg-amber-500/10 border-amber-500/20";
@@ -661,8 +604,8 @@
                     <div class="text-[9px] font-extrabold px-2 py-1 rounded-md border uppercase shrink-0 ${badgeColor} w-20 text-center">
                         ${spesa.tipo === "TASSA/FRONTIERA" ? "TASSA" : spesa.tipo}
                     </div>
-                    <input type="text" value="${spesa.localita}" placeholder="LOCALITÀ" onchange="aggiornaValoreSpesaDinamica('${spesa.id}', 'localita', this.value); this.value = this.value.toUpperCase();" class="w-full bg-slate-800 border border-slate-700/60 rounded-lg px-2 py-1.5 text-white text-xs font-semibold uppercase focus:outline-none focus:border-blue-500">
-                    <input type="number" step="0.01" value="${spesa.importo}" placeholder="€ 0.00" oninput="aggiornaValoreSpesaDinamica('${spesa.id}', 'importo', this.value)" class="w-20 bg-slate-800 border border-slate-700/60 rounded-lg px-2 py-1.5 text-white text-xs font-bold text-right focus:outline-none focus:border-blue-500">
+                    <input type="text" value="${spesa.localita}" placeholder="LOCALITÀ" onblur="aggiornaValoreSpesaDinamica('${spesa.id}', 'localita', this.value); this.value = this.value.toUpperCase();" class="w-full bg-slate-800 border border-slate-700/60 rounded-lg px-2 py-1.5 text-white text-xs font-semibold uppercase focus:outline-none focus:border-blue-500">
+                    <input type="number" step="0.01" value="${spesa.importo || ''}" placeholder="€ 0.00" oninput="aggiornaValoreSpesaDinamica('${spesa.id}', 'importo', this.value)" class="w-20 bg-slate-800 border border-slate-700/60 rounded-lg px-2 py-1.5 text-white text-xs font-bold text-right focus:outline-none focus:border-blue-500">
                     <button onclick="rimuoviSpesaDinamica('${spesa.id}')" class="text-red-500 hover:bg-red-500/10 p-1.5 rounded-lg font-bold text-xs shrink-0 transition-all select-none">
                         ❌
                     </button>
@@ -670,9 +613,7 @@
                 container.appendChild(div);
             });
         }
-        // -----------------------------------------------------
 
-        // Gestione caricamento foto scontrini illimitati
         function caricaFotoScontrini() {
             const fileInput = document.getElementById("input_foto_scontrino");
             const galleria = document.getElementById("container_anteprima_foto");
@@ -684,7 +625,6 @@
                         const base64Img = e.target.result;
                         fotoScontriniCorrenti.push(base64Img);
                         
-                        // Aggiunge l'anteprima visiva nell'applicazione mobile
                         const div = document.createElement("div");
                         div.className = "relative bg-slate-800 rounded-lg overflow-hidden aspect-square border border-slate-700";
                         div.innerHTML = `
@@ -705,7 +645,6 @@
             salvaDatiLocalStorage();
         }
 
-        // Calcola e aggiorna in tempo reale le cifre e i badge della schermata
         function collegaCalcoliInTempoReale() {
             const kmPartenza = document.getElementById("input_km_partenza");
             const kmArrivo = document.getElementById("input_km_arrivo");
@@ -752,7 +691,6 @@
             document.getElementById("opt_hide_zero").addEventListener("change", salvaDatiLocalStorage);
         }
 
-        // Salva l'intero stato dell'applicazione nel telefono
         function salvaDatiLocalStorage() {
             try {
                 localStorage.setItem("fv_autista", document.getElementById("input_autista").value);
@@ -787,15 +725,12 @@
                 localStorage.setItem("fv_opt_hide_zero", document.getElementById("opt_hide_zero").checked ? "1" : "0");
                 localStorage.setItem("fv_storico_tour", JSON.stringify(storicoTourGiorni));
                 localStorage.setItem("fv_foto_scontrini", JSON.stringify(fotoScontriniCorrenti));
-                
-                // Salva le spese dinamiche in formato stringa JSON
                 localStorage.setItem("fv_spese_dinamiche", JSON.stringify(registroSpeseDinamiche));
             } catch(e) {
                 console.error("LocalStorage non accessibile:", e);
             }
         }
 
-        // Carica i dati all'avvio dell'applicazione
         function caricaDatiLocalStorage() {
             try {
                 document.getElementById("input_autista").value = localStorage.getItem("fv_autista") || "";
@@ -836,7 +771,6 @@
                 fotoScontriniCorrenti = JSON.parse(localStorage.getItem("fv_foto_scontrini")) || [];
                 registroSpeseDinamiche = JSON.parse(localStorage.getItem("fv_spese_dinamiche")) || [];
 
-                // Rigenera galleria fotografica anteprime nell'app
                 const galleria = document.getElementById("container_anteprima_foto");
                 galleria.innerHTML = "";
                 fotoScontriniCorrenti.forEach(base64Img => {
@@ -855,30 +789,44 @@
             }
         }
 
-        function apriAlert(titolo, messaggio) {
-            document.getElementById("alert_title").innerText = titolo;
-            document.getElementById("alert_message").innerText = messaggio;
-            document.getElementById("modal_custom_alert").classList.remove("hidden");
-        }
-
-        function apriConfirm(icona, titolo, messaggio, callback) {
-            document.getElementById("confirm_icon").innerText = icona;
-            document.getElementById("confirm_title").innerText = titolo;
-            document.getElementById("confirm_message").innerText = messaggio;
-            globalConfirmCallback = callback;
-            document.getElementById("modal_custom_confirm").classList.remove("hidden");
-        }
-
-        document.getElementById("btn_confirm_proceed").addEventListener("click", () => {
-            document.getElementById("modal_custom_confirm").classList.add("hidden");
-            if (globalConfirmCallback) {
-                globalConfirmCallback();
-                globalConfirmCallback = null;
-            }
-        });
-
         function chiudiModal(id) {
             document.getElementById(id).classList.add("hidden");
+        }
+
+        function eseguiTabulaRasaCompleta() {
+            document.getElementById("input_cliente").value = "";
+            document.getElementById("input_viaggio").value = "";
+            document.getElementById("input_tratta_inizio").value = "";
+            document.getElementById("input_tratta_fine").value = "";
+            document.getElementById("input_km_partenza").value = "";
+            document.getElementById("input_km_arrivo").value = "";
+            document.getElementById("input_acconto").value = "";
+
+            document.getElementById("input_gasolio_litri").value = "";
+            document.getElementById("input_gasolio_prezzo").value = "";
+            document.getElementById("select_carta_gasolio").value = "NESSUNA";
+            document.getElementById("input_carta_gasolio_man").value = "";
+            document.getElementById("input_adblue_litri").value = "";
+            document.getElementById("input_adblue_prezzo").value = "";
+            document.getElementById("select_carta_adblue").value = "NESSUNA";
+            document.getElementById("input_carta_adblue_man").value = "";
+            document.getElementById("input_pasti").value = "";
+            document.getElementById("input_hotel").value = "";
+            document.getElementById("input_varie").value = "";
+            
+            document.getElementById("container_anteprima_foto").innerHTML = "";
+            fotoScontriniCorrenti = [];
+            storicoTourGiorni = [];
+            registroSpeseDinamiche = [];
+            renderSpeseDinamiche();
+
+            const oggi = new Date();
+            document.getElementById("input_data").value = oggi.toISOString().split('T')[0];
+
+            salvaDatiLocalStorage();
+            document.getElementById("badge_km_totali").innerText = "0 KM Percorsi Oggi";
+            document.getElementById("badge_gasolio_calc").innerText = "Totale Gasolio: € 0,00";
+            document.getElementById("badge_adblue_calc").innerText = "Totale AdBlue: € 0,00";
         }
 
         function confermaInizioViaggio() {
@@ -887,44 +835,11 @@
                 "Nuovo Viaggio?",
                 "Vuoi iniziare un nuovo viaggio? Verranno azzerate le tappe correnti, il cliente, i chilometri, il registro scontrini e lo storico tour. I dati dell'autista, del bus e della targa rimarranno salvati sul telefono.",
                 () => {
-                    document.getElementById("input_cliente").value = "";
-                    document.getElementById("input_viaggio").value = "";
-                    document.getElementById("input_tratta_inizio").value = "";
-                    document.getElementById("input_tratta_fine").value = "";
-                    document.getElementById("input_km_partenza").value = "";
-                    document.getElementById("input_km_arrivo").value = "";
-                    document.getElementById("input_acconto").value = "";
-
-                    document.getElementById("input_gasolio_litri").value = "";
-                    document.getElementById("input_gasolio_prezzo").value = "";
-                    document.getElementById("select_carta_gasolio").value = "NESSUNA";
-                    document.getElementById("input_carta_gasolio_man").value = "";
-                    document.getElementById("input_adblue_litri").value = "";
-                    document.getElementById("input_adblue_prezzo").value = "";
-                    document.getElementById("select_carta_adblue").value = "NESSUNA";
-                    document.getElementById("input_carta_adblue_man").value = "";
-                    document.getElementById("input_pasti").value = "";
-                    document.getElementById("input_hotel").value = "";
-                    document.getElementById("input_varie").value = "";
-                    
-                    document.getElementById("container_anteprima_foto").innerHTML = "";
-                    fotoScontriniCorrenti = [];
-                    storicoTourGiorni = [];
-                    registroSpeseDinamiche = [];
-                    renderSpeseDinamiche();
-
-                    const oggi = new Date();
-                    document.getElementById("input_data").value = oggi.toISOString().split('T')[0];
-
-                    salvaDatiLocalStorage();
-                    document.getElementById("badge_km_totali").innerText = "0 KM Percorsi Oggi";
-                    document.getElementById("badge_gasolio_calc").innerText = "Totale Gasolio: € 0,00";
-                    document.getElementById("badge_adblue_calc").innerText = "Totale AdBlue: € 0,00";
+                    eseguiTabulaRasaCompleta();
                 }
             );
         }
 
-        // Salva la tappa odierna nello storico cumulativo prima di azzerare i campi
         function salvaTappaInStorico() {
             const dataVal = document.getElementById("input_data").value;
             const trattaInizio = document.getElementById("input_tratta_inizio").value.trim() || "-";
@@ -932,7 +847,6 @@
             const kmPart = parseFloat(document.getElementById("input_km_partenza").value) || 0;
             const kmArr = parseFloat(document.getElementById("input_km_arrivo").value) || 0;
             
-            // Estrazione spese fisse
             const pasti = parseFloat(document.getElementById("input_pasti").value) || 0;
             const hotel = parseFloat(document.getElementById("input_hotel").value) || 0;
             const varie = parseFloat(document.getElementById("input_varie").value) || 0;
@@ -945,7 +859,6 @@
             const prcA = parseFloat(document.getElementById("input_adblue_prezzo").value) || 0;
             const adblue = Math.round(litA * prcA * 100) / 100;
 
-            // Raggruppa e somma spese dinamiche del giorno per confluire correttamente nelle macrovoci di riepilogo
             let parch = 0;
             let ztl = 0;
             let tasse = 0;
@@ -979,16 +892,13 @@
                 return;
             }
 
-            // Archivia i dati correnti nello storico cumulativo prima del reset
             salvaTappaInStorico();
 
-            // Slittamento intelligente dati logistici per domani
             document.getElementById("input_km_partenza").value = kmArrivo;
             document.getElementById("input_km_arrivo").value = "";
             document.getElementById("input_tratta_inizio").value = fineTratta;
             document.getElementById("input_tratta_fine").value = "";
 
-            // Reset delle spese fisse
             document.getElementById("input_gasolio_litri").value = "";
             document.getElementById("input_gasolio_prezzo").value = "";
             document.getElementById("select_carta_gasolio").value = "NESSUNA";
@@ -1001,11 +911,9 @@
             document.getElementById("input_hotel").value = "";
             document.getElementById("input_varie").value = "";
             
-            // Azzera il registro delle spese dinamiche giornaliero
             registroSpeseDinamiche = [];
             renderSpeseDinamiche();
             
-            // Avanza automaticamente la data inserita di 1 giorno
             const dataCorrente = new Date(document.getElementById("input_data").value);
             dataCorrente.setDate(dataCorrente.getDate() + 1);
             document.getElementById("input_data").value = dataCorrente.toISOString().split('T')[0];
@@ -1018,8 +926,12 @@
             document.getElementById("modal_giorno_successivo").classList.remove("hidden");
         }
 
+        function chiusuraEAzzeramentoTotaleTour() {
+            eseguiTabulaRasaCompleta();
+            apriAlert("Tour Concluso", "Il tour corrente è stato salvato e archiviato. La schermata è stata azzerata e ripulita, pronta per un nuovo inserimento.");
+        }
+
         function confermaFineViaggio() {
-            // Salva l'ultima tappa se compilata
             const kmArrivo = parseFloat(document.getElementById("input_km_arrivo").value) || 0;
             if (kmArrivo > 0) {
                 salvaTappaInStorico();
@@ -1028,9 +940,8 @@
             apriConfirm(
                 "🛑",
                 "Chiusura Tour definitivo",
-                "Vuoi chiudere definitivamente il tour attuale? Verrai reindirizzato alle opzioni per stampare il resoconto km e spese totali aggregate dell'intero viaggio.",
+                "Vuoi chiudere definitivamente il tour attuale? Tutte le spese correnti e i chilometri storici registrati verranno azzerati per lasciar spazio al prossimo viaggio.",
                 () => {
-                    // Domanda successiva esplicita (Parametro 8)
                     setTimeout(() => {
                         apriConfirm(
                             "📊",
@@ -1038,6 +949,10 @@
                             "Vuoi generare il resoconto completo dei KM e delle spese divise per voci del tour intero in formato PDF?",
                             () => {
                                 lanciaStampaRiepilogoGenerale();
+                                setTimeout(chiusuraEAzzeramentoTotaleTour, 1500); 
+                            },
+                            () => {
+                                chiusuraEAzzeramentoTotaleTour();
                             }
                         );
                     }, 400);
@@ -1045,7 +960,6 @@
             );
         }
 
-        // Genera il PDF di chiusura con KM divisi per giorni e spese aggregate
         function lanciaStampaRiepilogoGenerale() {
             const autista = document.getElementById("input_autista").value.trim() || "AUTISTA";
             const cliente = document.getElementById("input_cliente").value.trim() || "AGENZIA";
@@ -1065,7 +979,6 @@
                 const tr = document.createElement("tr");
                 const totKMGiorno = Math.max(0, g.kmFine - g.kmInizio);
                 
-                // Formatta data leggibile
                 const dParti = g.data.split("-");
                 const dFormato = `${dParti[2] || '00'}/${dParti[1] || '00'}/${dParti[0] || '00'}`;
 
@@ -1078,7 +991,6 @@
                 `;
                 kmTbody.appendChild(tr);
 
-                // Accumulo macrovoci spese
                 for (let chiave in macroSpese) {
                     macroSpese[chiave] += g.spese[chiave] || 0;
                 }
@@ -1109,7 +1021,6 @@
                 speseTbody.appendChild(trS);
             }
 
-            // Aggiungi riga totale finale
             const trTot = document.createElement("tr");
             trTot.style = "background-color: #cbd5e0 !important; font-weight: bold;";
             trTot.innerHTML = `
@@ -1118,7 +1029,6 @@
             `;
             speseTbody.appendChild(trTot);
 
-            // Modifica titolo temporaneo del documento per il salvataggio del Riepilogo
             const mesi = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
             const meseCorrente = mesi[new Date().getMonth()];
             document.title = `${autista}-${cliente}-${meseCorrente}`.toLowerCase().replace(/\s+/g, '-');
@@ -1129,12 +1039,10 @@
             setTimeout(() => {
                 window.print();
                 containerSummary.classList.add("hidden");
-                // Ripristina titolo standard giornaliero
                 aggiornaTitoloDocumento();
             }, 300);
         }
 
-        // FUNZIONE: GENERAZIONE E STAMPA DEL PDF FISICO GIORNALIERO
         function generaStampaGiornata() {
             const autista = document.getElementById("input_autista").value.trim() || "NON SPECIFICATO";
             const bus = document.getElementById("input_bus").value.trim() || "-";
@@ -1142,7 +1050,7 @@
             const cliente = document.getElementById("input_cliente").value.trim() || "NON SPECIFICATO";
             const viaggio = document.getElementById("input_viaggio").value.trim() || "ORDINARIO";
             const trattaInizio = document.getElementById("input_tratta_inizio").value.trim() || "-";
-            const trataFine = document.getElementById("input_tratta_fine").value.trim() || "-";
+            const trattaFine = document.getElementById("input_tratta_fine").value.trim() || "-";
             const acconto = parseFloat(document.getElementById("input_acconto").value) || 0;
 
             const kmPartenza = parseFloat(document.getElementById("input_km_partenza").value) || 0;
@@ -1151,7 +1059,6 @@
 
             const optHideZero = document.getElementById("opt_hide_zero").checked;
 
-            // Formattazione data inserita manualmente o automatica
             const dataVal = document.getElementById("input_data").value;
             let dataStringa = "-";
             if (dataVal) {
@@ -1159,27 +1066,24 @@
                 dataStringa = `${parti[2]}/${parti[1]}/${parti[0]}`;
             }
 
-            // Compila intestazioni del PDF giornaliero
             document.getElementById("pdf_data_foglio").innerText = dataStringa;
             document.getElementById("pdf_val_autista").innerText = autista.toUpperCase();
             document.getElementById("pdf_val_bus_targa").innerText = `BUS N° ${bus.toUpperCase()} / TARGA ${targa.toUpperCase()}`;
             document.getElementById("pdf_val_cliente").innerText = cliente.toUpperCase();
             document.getElementById("pdf_val_viaggio").innerText = viaggio.toUpperCase();
             document.getElementById("pdf_val_tratta_inizio").innerText = trattaInizio.toUpperCase();
-            document.getElementById("pdf_val_tratta_fine").innerText = trataFine.toUpperCase();
+            document.getElementById("pdf_val_tratta_fine").innerText = trattaFine.toUpperCase();
             document.getElementById("pdf_val_acconto").innerText = acconto > 0 ? `€ ${acconto.toFixed(2).replace('.', ',')} (Puro titolo informativo ed esterno ai conteggi delle spese vive)` : 'Nessun acconto registrato';
 
             document.getElementById("pdf_val_km_partenza").innerText = kmPartenza > 0 ? kmPartenza.toLocaleString('it-IT') : '-';
             document.getElementById("pdf_val_km_arrivo").innerText = kmArrivo > 0 ? kmArrivo.toLocaleString('it-IT') : '-';
             document.getElementById("pdf_val_km_totali").innerText = kmTotali > 0 ? `${kmTotali.toLocaleString('it-IT')} KM` : '-';
 
-            // Compila la tabella delle spese nel PDF
             const tbody = document.getElementById("pdf_spese_tbody");
             tbody.innerHTML = "";
 
             let sommaTotaleSpese = 0;
 
-            // 1. INSERISCE TUTTE LE SPESE DINAMICHE CARICATE (Parcheggi, ZTL, Tasse)
             registroSpeseDinamiche.forEach(spesa => {
                 const importoFloat = parseFloat(spesa.importo) || 0;
                 if (!(optHideZero && importoFloat === 0)) {
@@ -1203,7 +1107,6 @@
                 }
             });
 
-            // 2. Spesa Gasolio con indicazione Carta Preset
             const litriG = parseFloat(document.getElementById("input_gasolio_litri").value) || 0;
             const prezzoG = parseFloat(document.getElementById("input_gasolio_prezzo").value) || 0;
             const cartaGasSel = document.getElementById("select_carta_gasolio").value;
@@ -1217,7 +1120,6 @@
                 inserisciRigaSpesa(tbody, dataStringa, "Rifornimento Gasolio", descGasolio, valGasolio);
             }
 
-            // 3. Spesa AdBlue con indicazione Carta Preset
             const litriA = parseFloat(document.getElementById("input_adblue_litri").value) || 0;
             const prezzoA = parseFloat(document.getElementById("input_adblue_prezzo").value) || 0;
             const cartaAdSel = document.getElementById("select_carta_adblue").value;
@@ -1231,21 +1133,18 @@
                 inserisciRigaSpesa(tbody, dataStringa, "Rifornimento AdBlue", descAdblue, valAdblue);
             }
 
-            // 4. Spesa Pasti
             const valPasti = parseFloat(document.getElementById("input_pasti").value) || 0;
             if (!(optHideZero && valPasti === 0)) {
                 sommaTotaleSpese += valPasti;
                 inserisciRigaSpesa(tbody, dataStringa, "Pasti", "Vitto autista", valPasti);
             }
 
-            // 5. Spesa Hotel
             const valHotel = parseFloat(document.getElementById("input_hotel").value) || 0;
             if (!(optHideZero && valHotel === 0)) {
                 sommaTotaleSpese += valHotel;
                 inserisciRigaSpesa(tbody, dataStringa, "Hotel / Alloggio", "Pernottamento autista", valHotel);
             }
 
-            // 6. Spesa Varie
             const valVarie = parseFloat(document.getElementById("input_varie").value) || 0;
             if (!(optHideZero && valVarie === 0)) {
                 sommaTotaleSpese += valVarie;
@@ -1258,7 +1157,6 @@
 
             document.getElementById("pdf_val_totale_spese").innerText = `€ ${sommaTotaleSpese.toFixed(2).replace('.', ',')}`;
 
-            // Rendering allegati fotografici scontrini illimitati nel documento finale
             const pdfGalleria = document.getElementById("pdf_galleria_scontrini");
             pdfGalleria.innerHTML = "";
             if (fotoScontriniCorrenti.length > 0) {
@@ -1273,7 +1171,6 @@
                 document.getElementById("pdf_sezione_scontrini").classList.add("hidden");
             }
 
-            // Aggiorna titolo del file di sistema prima di avviare il gestore di stampa
             aggiornaTitoloDocumento();
 
             const containerStampa = document.getElementById("pdf-template");
@@ -1298,5 +1195,3 @@
     </script>
 </body>
 </html>
-
-```
