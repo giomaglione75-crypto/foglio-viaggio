@@ -34,8 +34,11 @@
             .no-print {
                 display: none !important;
             }
+            /* Blocca i fogli non attivi durante la stampa */
+            .hidden {
+                display: none !important;
+            }
             #pdf-template, #pdf-summary-template {
-                display: block !important;
                 width: 100% !important;
                 max-width: 100% !important;
                 margin: 0 !important;
@@ -931,7 +934,7 @@
             );
         }
 
-        // Archivia la tappa odierna nello storico con il dettaglio completo delle singole spese
+        // Archivia la tappa odierna nello storico con il ditteglio completo delle singole spese
         function salvaTappaInStorico() {
             const dataVal = document.getElementById("input_data").value;
             const trattaInizio = document.getElementById("input_tratta_inizio").value.trim() || "-";
