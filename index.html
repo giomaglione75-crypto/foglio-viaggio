@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -272,13 +273,13 @@
             </div>
         </div>
 
-        <!-- SCHEDA 4.2: FOTO SCONTRINI ILLIMITATE -->
+        <!-- SCHEDA 4.2: FOTO SCONTRINI ILLIMITATE (COMPRESSIONE AUTOMATICA) -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 📸 Scontrini e Ricevute
             </h3>
             <div class="space-y-3">
-                <p class="text-[11px] text-slate-400">Scatta o aggiungi foto illimitate degli scontrini per questo foglio giornaliero.</p>
+                <p class="text-[11px] text-slate-400">Aggiungi foto degli scontrini. Saranno compresse in automatico per non rallentare l'applicazione.</p>
                 <input type="file" id="input_foto_scontrino" accept="image/*" multiple onchange="caricaFotoScontrini()" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 cursor-pointer">
                 
                 <div id="container_anteprima_foto" class="grid grid-cols-3 gap-2 pt-2">
@@ -498,26 +499,8 @@
         </div>
     </div>
 
-    <div id="modal_custom_confirm" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 no-print">
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-xs text-center shadow-2xl">
-            <div id="confirm_icon" class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">❓</div>
-            <h3 id="confirm_title" class="text-white font-bold text-lg mb-1">Sei sicuro?</h3>
-            <p id="confirm_message" class="text-xs text-slate-300 mb-6">Operazione.</p>
-            <div class="grid grid-cols-2 gap-3">
-                <button onclick="chiudiModal('modal_custom_confirm')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl transition-all text-xs uppercase">
-                    No, Annulla
-                </button>
-                <button id="btn_confirm_proceed" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all text-xs uppercase">
-                    Sì, Procedi
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- LOGICA DI PROGRAMMAZIONE -->
     <script>
-        let globalConfirmCallback = null;
-        
         let storicoTourGiorni = [];
         let fotoScontriniCorrenti = [];
         let registroSpeseDinamiche = [];
@@ -535,6 +518,7 @@
             renderSpeseDinamiche();
         });
 
+        // Forza la conversione in maiuscolo
         function attivazioneMaiuscoloIstantaneo() {
             const inputTesto = ["input_autista", "input_bus", "input_targa", "input_cliente", "input_viaggio", "input_tratta_inizio", "input_tratta_fine", "input_carta_gasolio_man", "input_carta_adblue_man"];
             inputTesto.forEach(id => {
@@ -542,16 +526,17 @@
                 if (elemento) {
                     elemento.addEventListener("change", function() {
                         this.value = this.value.toUpperCase();
-                        salvaDatiLocalStorage();
+                        salvaDatiForm();
                         aggiornaTitoloDocumento();
                     });
                     elemento.addEventListener("input", function() {
-                        salvaDatiLocalStorage();
+                        salvaDatiForm();
                     });
                 }
             });
         }
 
+        // Calcola e assegna dinamicamente il nome del file per la stampa
         function aggiornaTitoloDocumento() {
             const dataVal = document.getElementById("input_data").value;
             const agenzia = document.getElementById("input_cliente").value.trim() || "PRATICA";
@@ -573,10 +558,10 @@
                 inputMan.classList.add("hidden");
                 inputMan.value = "";
             }
-            salvaDatiLocalStorage();
+            salvaDatiForm();
         }
 
-        // --- GESTIONE SPESE DINAMICHE ---
+        // --- GESTIONE DELLE SPESE DI GIORNATA DINAMICHE ---
         function aggiungiSpesaDinamica(tipo, localita = "", importo = "") {
             const nuovaSpesa = {
                 id: Date.now() + Math.random().toString(36).substring(2, 7),
@@ -586,13 +571,13 @@
             };
             registroSpeseDinamiche.push(nuovaSpesa);
             renderSpeseDinamiche();
-            salvaDatiLocalStorage();
+            salvaSpeseDinamicheLocalStorage();
         }
 
         function rimuoviSpesaDinamica(id) {
             registroSpeseDinamiche = registroSpeseDinamiche.filter(spesa => spesa.id !== id);
             renderSpeseDinamiche();
-            salvaDatiLocalStorage();
+            salvaSpeseDinamicheLocalStorage();
         }
 
         function aggiornaValoreSpesaDinamica(id, campo, valore) {
@@ -603,7 +588,7 @@
                 } else if (campo === "importo") {
                     spesa.importo = parseFloat(valore) || 0;
                 }
-                salvaDatiLocalStorage();
+                salvaSpeseDinamicheLocalStorage();
             }
         }
 
@@ -638,37 +623,75 @@
             });
         }
 
+        // --- SISTEMA DI COMPRESSIONE DI FOTO IN BACKGROUND (PREVIENE RALLENTAMENTI E PERDITA DATI) ---
         function caricaFotoScontrini() {
             const fileInput = document.getElementById("input_foto_scontrino");
             const galleria = document.getElementById("container_anteprima_foto");
             
             if (fileInput.files) {
                 Array.from(fileInput.files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const base64Img = e.target.result;
-                        fotoScontriniCorrenti.push(base64Img);
+                    riduciEComprimiImmagine(file, function(base64Compressed) {
+                        fotoScontriniCorrenti.push(base64Compressed);
                         
                         const div = document.createElement("div");
                         div.className = "relative bg-slate-800 rounded-lg overflow-hidden aspect-square border border-slate-700";
                         div.innerHTML = `
-                            <img src="${base64Img}" class="w-full h-full object-cover">
-                            <button onclick="rimuoviFotoScontrino(this, '${base64Img}')" class="absolute top-1 right-1 bg-red-600 text-white rounded-full text-[9px] w-4 h-4 flex items-center justify-center font-bold">X</button>
+                            <img src="${base64Compressed}" class="w-full h-full object-cover">
+                            <button onclick="rimuoviFotoScontrino(this, '${base64Compressed}')" class="absolute top-1 right-1 bg-red-600 text-white rounded-full text-[9px] w-4 h-4 flex items-center justify-center font-bold">X</button>
                         `;
                         galleria.appendChild(div);
-                        salvaDatiLocalStorage();
-                    };
-                    reader.readAsDataURL(file);
+                        salvaFotoLocalStorage(); // Salva solo quando una foto viene caricata
+                    });
                 });
+                // Svuota l'input in modo da poter ricaricare lo stesso scontrino se necessario
+                fileInput.value = "";
             }
+        }
+
+        // Algoritmo di compressione canvas integrato per ridurre le foto da 8MB a ~90KB
+        function riduciEComprimiImmagine(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement("canvas");
+                    let width = img.width;
+                    let height = img.height;
+                    const maxDim = 800; // Risoluzione eccellente per fogli A4 leggibili, ma leggerissima
+
+                    if (width > height) {
+                        if (width > maxDim) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        }
+                    } else {
+                        if (height > maxDim) {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Converte in JPEG con qualità media (0.6): riduce il peso del 98%
+                    const compressedBase64 = canvas.toDataURL("image/jpeg", 0.6);
+                    callback(compressedBase64);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
 
         function rimuoviFotoScontrino(btn, base64) {
             fotoScontriniCorrenti = fotoScontriniCorrenti.filter(img => img !== base64);
             btn.parentElement.remove();
-            salvaDatiLocalStorage();
+            salvaFotoLocalStorage();
         }
 
+        // Calcoli istantanei a video
         function collegaCalcoliInTempoReale() {
             const kmPartenza = document.getElementById("input_km_partenza");
             const kmArrivo = document.getElementById("input_km_arrivo");
@@ -694,7 +717,7 @@
                 const totAdblue = Math.round(litA * prcA * 100) / 100;
                 document.getElementById("badge_adblue_calc").innerText = `Totale AdBlue: € ${totAdblue.toFixed(2).replace('.', ',')}`;
 
-                salvaDatiLocalStorage();
+                salvaDatiForm();
                 aggiornaTitoloDocumento();
             };
 
@@ -709,13 +732,14 @@
             const altreSpese = ["input_pasti", "input_hotel", "input_varie", "input_acconto"];
             altreSpese.forEach(id => {
                 const el = document.getElementById(id);
-                if (el) el.addEventListener("input", salvaDatiLocalStorage);
+                if (el) el.addEventListener("input", salvaDatiForm);
             });
             
-            document.getElementById("opt_hide_zero").addEventListener("change", salvaDatiLocalStorage);
+            document.getElementById("opt_hide_zero").addEventListener("change", salvaDatiForm);
         }
 
-        function salvaDatiLocalStorage() {
+        // --- SISTEMA DI SALVATAGGIO OTTIMIZZATO (DIVISO PER COMPONENTI PER VELOCIZZARE L'APPLICAZIONE) ---
+        function salvaDatiForm() {
             try {
                 localStorage.setItem("fv_autista", document.getElementById("input_autista").value);
                 localStorage.setItem("fv_bus", document.getElementById("input_bus").value);
@@ -747,14 +771,37 @@
                 localStorage.setItem("fv_spesa_varie", document.getElementById("input_varie").value);
 
                 localStorage.setItem("fv_opt_hide_zero", document.getElementById("opt_hide_zero").checked ? "1" : "0");
-                localStorage.setItem("fv_storico_tour", JSON.stringify(storicoTourGiorni));
-                localStorage.setItem("fv_foto_scontrini", JSON.stringify(fotoScontriniCorrenti));
-                localStorage.setItem("fv_spese_dinamiche", JSON.stringify(registroSpeseDinamiche));
             } catch(e) {
-                console.error("LocalStorage non accessibile:", e);
+                console.error("Errore salvataggio dati:", e);
             }
         }
 
+        function salvaFotoLocalStorage() {
+            try {
+                localStorage.setItem("fv_foto_scontrini", JSON.stringify(fotoScontriniCorrenti));
+            } catch(e) {
+                console.error("Spazio esaurito! Rimuovi qualche foto.", e);
+                apriAlert("Attenzione", "La memoria delle foto è piena. Prova ad eliminarne qualcuna!");
+            }
+        }
+
+        function salvaSpeseDinamicheLocalStorage() {
+            try {
+                localStorage.setItem("fv_spese_dinamiche", JSON.stringify(registroSpeseDinamiche));
+            } catch(e) {
+                console.error(e);
+            }
+        }
+
+        function salvaStoricoTourLocalStorage() {
+            try {
+                localStorage.setItem("fv_storico_tour", JSON.stringify(storicoTourGiorni));
+            } catch(e) {
+                console.error(e);
+            }
+        }
+
+        // Carica i dati all'avvio
         function caricaDatiLocalStorage() {
             try {
                 document.getElementById("input_autista").value = localStorage.getItem("fv_autista") || "";
@@ -823,7 +870,7 @@
             document.getElementById("modal_custom_alert").classList.remove("hidden");
         }
 
-        // Sistema di conferma standard del browser per evitare blocchi asincroni
+        // Conferma browser nativa (blindata contro blocchi sandboxed)
         function apriConfirm(icona, titolo, messaggio, callbackSì, callbackNo = null) {
             const risposta = confirm(`${titolo}\n\n${messaggio}`);
             if (risposta) {
@@ -833,6 +880,7 @@
             }
         }
 
+        // Svuota completamente l'app
         function eseguiTabulaRasaCompleta() {
             document.getElementById("input_cliente").value = "";
             document.getElementById("input_viaggio").value = "";
@@ -855,6 +903,8 @@
             document.getElementById("input_varie").value = "";
             
             document.getElementById("container_anteprima_foto").innerHTML = "";
+            
+            // Svuota la memoria foto e storico
             fotoScontriniCorrenti = [];
             storicoTourGiorni = [];
             registroSpeseDinamiche = [];
@@ -863,7 +913,11 @@
             const oggi = new Date();
             document.getElementById("input_data").value = oggi.toISOString().split('T')[0];
 
-            salvaDatiLocalStorage();
+            salvaDatiForm();
+            salvaFotoLocalStorage();
+            salvaSpeseDinamicheLocalStorage();
+            salvaStoricoTourLocalStorage();
+            
             document.getElementById("badge_km_totali").innerText = "0 KM Percorsi Oggi";
             document.getElementById("badge_gasolio_calc").innerText = "Totale Gasolio: € 0,00";
             document.getElementById("badge_adblue_calc").innerText = "Totale AdBlue: € 0,00";
@@ -917,6 +971,7 @@
                 kmFine: kmArr,
                 spese: { parch, ztl, tasse, gasolio, adblue, pasti, hotel, varie }
             });
+            salvaStoricoTourLocalStorage();
         }
 
         function giornoSuccessivo() {
@@ -934,11 +989,13 @@
 
             salvaTappaInStorico();
 
+            // Slittamento tappe
             document.getElementById("input_km_partenza").value = kmArrivo;
             document.getElementById("input_km_arrivo").value = "";
             document.getElementById("input_tratta_inizio").value = fineTratta;
             document.getElementById("input_tratta_fine").value = "";
 
+            // Reset spese giornaliere
             document.getElementById("input_gasolio_litri").value = "";
             document.getElementById("input_gasolio_prezzo").value = "";
             document.getElementById("select_carta_gasolio").value = "NESSUNA";
@@ -954,11 +1011,14 @@
             registroSpeseDinamiche = [];
             renderSpeseDinamiche();
             
+            // Avanza la data di un giorno
             const dataCorrente = new Date(document.getElementById("input_data").value);
             dataCorrente.setDate(dataCorrente.getDate() + 1);
             document.getElementById("input_data").value = dataCorrente.toISOString().split('T')[0];
 
-            salvaDatiLocalStorage();
+            salvaDatiForm();
+            salvaSpeseDinamicheLocalStorage();
+            
             document.getElementById("badge_km_totali").innerText = "0 KM Percorsi Oggi";
             document.getElementById("badge_gasolio_calc").innerText = "Totale Gasolio: € 0,00";
             document.getElementById("badge_adblue_calc").innerText = "Totale AdBlue: € 0,00";
@@ -1081,6 +1141,7 @@
             }, 300);
         }
 
+        // --- GENERAZIONE PDF DIARIO (GIORNO SINGOLO) ---
         function generaStampaGiornata() {
             const autista = document.getElementById("input_autista").value.trim() || "NON SPECIFICATO";
             const bus = document.getElementById("input_bus").value.trim() || "-";
@@ -1122,6 +1183,7 @@
 
             let sommaTotaleSpese = 0;
 
+            // Inserisci spese dinamiche
             registroSpeseDinamiche.forEach(spesa => {
                 const importoFloat = parseFloat(spesa.importo) || 0;
                 if (!(optHideZero && importoFloat === 0)) {
@@ -1145,6 +1207,7 @@
                 }
             });
 
+            // Spesa Gasolio
             const litriG = parseFloat(document.getElementById("input_gasolio_litri").value) || 0;
             const prezzoG = parseFloat(document.getElementById("input_gasolio_prezzo").value) || 0;
             const cartaGasSel = document.getElementById("select_carta_gasolio").value;
@@ -1158,6 +1221,7 @@
                 inserisciRigaSpesa(tbody, dataStringa, "Rifornimento Gasolio", descGasolio, valGasolio);
             }
 
+            // Spesa AdBlue
             const litriA = parseFloat(document.getElementById("input_adblue_litri").value) || 0;
             const prezzoA = parseFloat(document.getElementById("input_adblue_prezzo").value) || 0;
             const cartaAdSel = document.getElementById("select_carta_adblue").value;
@@ -1171,6 +1235,7 @@
                 inserisciRigaSpesa(tbody, dataStringa, "Rifornimento AdBlue", descAdblue, valAdblue);
             }
 
+            // Altre spese
             const valPasti = parseFloat(document.getElementById("input_pasti").value) || 0;
             if (!(optHideZero && valPasti === 0)) {
                 sommaTotaleSpese += valPasti;
@@ -1195,6 +1260,7 @@
 
             document.getElementById("pdf_val_totale_spese").innerText = `€ ${sommaTotaleSpese.toFixed(2).replace('.', ',')}`;
 
+            // Rendering allegati fotografici scontrini
             const pdfGalleria = document.getElementById("pdf_galleria_scontrini");
             pdfGalleria.innerHTML = "";
             if (fotoScontriniCorrenti.length > 0) {
@@ -1234,3 +1300,4 @@
 </body>
 </html>
 
+```
