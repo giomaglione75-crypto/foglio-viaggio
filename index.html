@@ -1223,10 +1223,13 @@
             containerSummary.classList.remove("hidden");
             
             setTimeout(() => {
-                window.print();
-                containerSummary.classList.add("hidden");
-                aggiornaTitoloDocumento();
-            }, 300);
+    window.print();
+
+    setTimeout(() => {
+        containerStampa.classList.add("hidden");
+    }, 1500);
+
+}, 800);
         }
 
         // --- GENERAZIONE PDF DIARIO (GIORNO SINGOLO CON DETTAGLIO VOCE PER VOCE E FOTO SCONTRINI) ---
