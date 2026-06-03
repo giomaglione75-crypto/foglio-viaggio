@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Iannucci S.R.L. - App Viaggio</title>
     
+    <!-- Icona dell'App incorporata in formato SVG (Sfondo blu e Bus bianco) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231e3a8a'/%3E%3Cpath d='M400 128H112c-26.5 0-48 21.5-48 48v224c0 17.7 14.3 32 32 32h16c8.8 0 16-7.2 16-16v-16h256v16c0 8.8 7.2 16 16 16h16c17.7 0 32-14.3 32-32V176c0-26.5-21.5-48-48-48zm-24 48v96H136v-96h240zM144 336c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm224 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z' fill='white'/%3E%3C/svg%3E">
     <link class="no-print" rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231e3a8a'/%3E%3Cpath d='M400 128H112c-26.5 0-48 21.5-48 48v224c0 17.7 14.3 32 32 32h16c8.8 0 16-7.2 16-16v-16h256v16c0 8.8 7.2 16 16 16h16c17.7 0 32-14.3 32-32V176c0-26.5-21.5-48-48-48zm-24 48v96H136v-96h240zM144 336c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm224 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z' fill='white'/%3E%3C/svg%3E">
 
+    <!-- Tailwind CSS per un design moderno, pulito e responsive -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -67,18 +69,22 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
 
+    <!-- INTERFACCIA APP MOBILE (INVISIBILE IN STAMPA) -->
     <div class="max-w-md mx-auto px-4 pt-6 pb-24 no-print">
         
+        <!-- Intestazione Superiore dell'App -->
         <div class="flex items-center justify-between mb-6">
             <div>
                 <h1 class="text-xl font-extrabold tracking-tight text-white">IANNUCCI S.R.L.</h1>
                 <p class="text-xs text-blue-400 font-bold uppercase tracking-wider">Foglio di Viaggio Digitale</p>
             </div>
+            <!-- Bottone Inizio Viaggio -->
             <button onclick="confermaInizioViaggio()" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-xs px-3.5 py-2 rounded-xl font-bold transition-all active:scale-95 flex items-center gap-1.5">
                 🚀 INIZIA TOUR
             </button>
         </div>
 
+        <!-- SCHEDA 1: PERSONALE E MEZZO -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 👤 Personale e Bus
@@ -105,6 +111,7 @@
             </div>
         </div>
 
+        <!-- SCHEDA 2: INFORMAZIONI SERVIZIO -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 🗺️ Tratta e Servizio
@@ -137,6 +144,7 @@
             </div>
         </div>
 
+        <!-- SCHEDA 3: CHILOMETRI GIORNALIERI -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 🗺️ Rilevamento KM
@@ -156,6 +164,7 @@
             </div>
         </div>
 
+        <!-- SCHEDA 4: SPESE DI GIORNATA -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 💶 Spese di Giornata
@@ -166,7 +175,8 @@
                     <span class="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider block">🚗 Registro Parcheggi, ZTL e Tasse Doganali</span>
                     
                     <div id="container_spese_dinamiche" class="space-y-2">
-                        </div>
+                        <!-- Generato dinamicamente via Javascript -->
+                    </div>
 
                     <div class="grid grid-cols-3 gap-1.5 pt-1">
                         <button onclick="aggiungiSpesaDinamica('PARCHEGGIO', '', '')" class="bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-500/20 py-2 rounded-lg text-[10px] font-extrabold transition-all uppercase">
@@ -181,6 +191,7 @@
                     </div>
                 </div>
 
+                <!-- Carburante Gasolio con Preset Carte -->
                 <div class="bg-slate-800/40 p-3 rounded-xl border border-slate-700/40 space-y-2">
                     <span class="text-[11px] font-extrabold text-amber-400 uppercase tracking-wider block">⛽ Rifornimento Gasolio</span>
                     <div class="grid grid-cols-2 gap-2">
@@ -212,6 +223,7 @@
                     </div>
                 </div>
 
+                <!-- Rifornimento AdBlue con Preset Carte -->
                 <div class="bg-slate-800/40 p-3 rounded-xl border border-slate-700/40 space-y-2">
                     <span class="text-[11px] font-extrabold text-blue-400 uppercase tracking-wider block">💧 Rifornimento AdBlue</span>
                     <div class="grid grid-cols-2 gap-2">
@@ -260,6 +272,7 @@
             </div>
         </div>
 
+        <!-- SCHEDA 4.2: FOTO SCONTRINI ILLIMITATE -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 📸 Scontrini e Ricevute
@@ -269,10 +282,12 @@
                 <input type="file" id="input_foto_scontrino" accept="image/*" multiple onchange="caricaFotoScontrini()" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 cursor-pointer">
                 
                 <div id="container_anteprima_foto" class="grid grid-cols-3 gap-2 pt-2">
-                    </div>
+                    <!-- Dinamico -->
+                </div>
             </div>
         </div>
 
+        <!-- SCHEDA 5: CONFIGURAZIONE STAMPA PDF -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-5 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3">⚙️ Impostazioni PDF</h3>
             <div class="flex items-center justify-between">
@@ -284,6 +299,7 @@
             </div>
         </div>
 
+        <!-- BOTTONI DI AZIONE -->
         <div class="space-y-3">
             <button onclick="generaStampaGiornata()" class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-extrabold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm uppercase">
                 📄 GENERA E SALVA PDF DI GIORNATA
@@ -301,6 +317,7 @@
 
     </div>
 
+    <!-- STRUTTURA DEL DOCUMENTO FINALE A4 DA STAMPARE -->
     <div id="pdf-template" class="hidden">
         <div class="flex justify-between items-end border-b-2 border-slate-800 pb-3 mb-4">
             <div>
@@ -388,7 +405,8 @@
                     </tr>
                 </thead>
                 <tbody id="pdf_spese_tbody">
-                    </tbody>
+                    <!-- Compilato dinamicamente via JS -->
+                </tbody>
                 <tfoot>
                     <tr class="font-extrabold text-[10.5pt]" style="background-color: #e2e8f0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
                         <td colspan="3" class="text-right">TOTALE SPESE DEL GIORNO:</td>
@@ -401,10 +419,12 @@
         <div id="pdf_sezione_scontrini" class="hidden mt-8">
             <span class="block text-[9pt] font-extrabold uppercase tracking-wider text-slate-800 border-b border-slate-300 pb-1 mb-3">Allegati Ricevute e Scontrini</span>
             <div id="pdf_galleria_scontrini" class="grid grid-cols-2 gap-4">
-                </div>
+                <!-- Immagini scontrini renderizzate a risoluzione pulita -->
+            </div>
         </div>
     </div>
 
+    <!-- TEMPLATE: PDF RESOCONTO GENERALE DI FINE TOUR -->
     <div id="pdf-summary-template" class="hidden">
         <div class="flex justify-between items-end border-b-2 border-slate-800 pb-3 mb-4">
             <div>
@@ -434,7 +454,8 @@
                     </tr>
                 </thead>
                 <tbody id="summary_km_tbody">
-                    </tbody>
+                    <!-- Compilato dinamicamente -->
+                </tbody>
             </table>
         </div>
 
@@ -448,11 +469,13 @@
                     </tr>
                 </thead>
                 <tbody id="summary_spese_tbody">
-                    </tbody>
+                    <!-- Compilato dinamicamente per macrovoci -->
+                </tbody>
             </table>
         </div>
     </div>
 
+    <!-- DIALOGHI E POPUP INFORMATIVI CUSTOM (NO-PRINT) -->
     <div id="modal_giorno_successivo" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 no-print">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-xs text-center shadow-2xl">
             <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">➡️</div>
@@ -491,6 +514,7 @@
         </div>
     </div>
 
+    <!-- LOGICA DI PROGRAMMAZIONE -->
     <script>
         let globalConfirmCallback = null;
         
@@ -793,6 +817,22 @@
             document.getElementById(id).classList.add("hidden");
         }
 
+        function apriAlert(titolo, messaggio) {
+            document.getElementById("alert_title").innerText = titolo;
+            document.getElementById("alert_message").innerText = messaggio;
+            document.getElementById("modal_custom_alert").classList.remove("hidden");
+        }
+
+        // Sistema di conferma standard del browser per evitare blocchi asincroni
+        function apriConfirm(icona, titolo, messaggio, callbackSì, callbackNo = null) {
+            const risposta = confirm(`${titolo}\n\n${messaggio}`);
+            if (risposta) {
+                callbackSì();
+            } else if (callbackNo) {
+                callbackNo();
+            }
+        }
+
         function eseguiTabulaRasaCompleta() {
             document.getElementById("input_cliente").value = "";
             document.getElementById("input_viaggio").value = "";
@@ -928,7 +968,7 @@
 
         function chiusuraEAzzeramentoTotaleTour() {
             eseguiTabulaRasaCompleta();
-            apriAlert("Tour Concluso", "Il tour corrente è stato salvato e archiviato. La schermata è stata azzerata e ripulita, pronta per un nuovo inserimento.");
+            alert("Tour Concluso. I dati e le spese sono stati azzerati con successo!");
         }
 
         function confermaFineViaggio() {
@@ -940,22 +980,20 @@
             apriConfirm(
                 "🛑",
                 "Chiusura Tour definitivo",
-                "Vuoi chiudere definitivamente il tour attuale? Tutte le spese correnti e i chilometri storici registrati verranno azzerati per lasciar spazio al prossimo viaggio.",
+                "Vuoi chiudere definitivamente il tour attuale? Tutte le tappe e le spese inserite verranno cancellate dalla memoria dell'app.",
                 () => {
-                    setTimeout(() => {
-                        apriConfirm(
-                            "📊",
-                            "Generare Resoconto Finale?",
-                            "Vuoi generare il resoconto completo dei KM e delle spese divise per voci del tour intero in formato PDF?",
-                            () => {
-                                lanciaStampaRiepilogoGenerale();
-                                setTimeout(chiusuraEAzzeramentoTotaleTour, 1500); 
-                            },
-                            () => {
-                                chiusuraEAzzeramentoTotaleTour();
-                            }
-                        );
-                    }, 400);
+                    apriConfirm(
+                        "📊",
+                        "Generare Resoconto Finale?",
+                        "Vuoi generare il resoconto complessivo del viaggio in PDF per l'ufficio prima di svuotare l'applicazione?",
+                        () => {
+                            lanciaStampaRiepilogoGenerale();
+                            setTimeout(chiusuraEAzzeramentoTotaleTour, 1500); 
+                        },
+                        () => {
+                            chiusuraEAzzeramentoTotaleTour();
+                        }
+                    );
                 }
             );
         }
@@ -1195,3 +1233,4 @@
     </script>
 </body>
 </html>
+
