@@ -1,4 +1,4 @@
-            <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -84,7 +84,7 @@
             </button>
         </div>
 
-        <!-- SCHEDA 1: PERSONALE E MEZZO (MEMORIA PERSISTENTE) -->
+        <!-- SCHEDA 1: PERSONALE E MEZZO -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 👤 Personale e Bus
@@ -104,7 +104,6 @@
                         <input type="text" id="input_targa" placeholder="Es. FD804XK" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-blue-500 transition-all text-sm font-semibold">
                     </div>
                 </div>
-                <!-- CAMPO 1: DATA CON SCELTA AUTOMATICA O MANUALE -->
                 <div>
                     <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Data Foglio di Viaggio</label>
                     <input type="date" id="input_data" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-blue-500 transition-all text-sm font-bold">
@@ -138,7 +137,6 @@
                         <input type="text" id="input_tratta_fine" placeholder="Località Arrivo" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-blue-500 transition-all text-sm font-semibold">
                     </div>
                 </div>
-                <!-- CAMPO 9: ACCONTO INFORMATIVO LIBERO -->
                 <div>
                     <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Acconto Ricevuto (€) <span class="text-slate-500 lowercase font-normal">(solo informativo)</span></label>
                     <input type="number" step="0.01" id="input_acconto" placeholder="0.00" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-blue-500 transition-all text-sm font-bold text-amber-400">
@@ -166,33 +164,33 @@
             </div>
         </div>
 
-        <!-- SCHEDA 4: SPESE DEL GIORNO Aggiornata con parametri 2 e 5 -->
+        <!-- SCHEDA 4: SPESE DI GIORNATA (RIPROGETTATA DINAMICA PER PARCHEGGI, ZTL, TASSE) -->
         <div class="bg-slate-900 rounded-2xl p-4 mb-4 border border-slate-800/80 shadow-xl">
             <h3 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 💶 Spese di Giornata
             </h3>
+            
             <div class="space-y-3">
-                <!-- Parcheggio combinato con Località -->
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Parcheggi (€)</label>
-                        <input type="number" step="0.01" id="input_parcheggio" placeholder="0.00" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-blue-500 transition-all text-sm font-semibold">
+                <!-- Sezione Dinamica delle Spese a riga multipla -->
+                <div class="bg-slate-950/40 p-3 rounded-xl border border-slate-800 space-y-3">
+                    <span class="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider block">🚗 Registro Parcheggi, ZTL e Tasse Doganali</span>
+                    
+                    <!-- Contenitore delle righe spese generate dinamicamente -->
+                    <div id="container_spese_dinamiche" class="space-y-2">
+                        <!-- Generato dinamicamente via Javascript -->
                     </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Località Parcheggio</label>
-                        <input type="text" id="input_parcheggio_loc" placeholder="Es. FIRENZE" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-blue-500 transition-all text-sm font-semibold">
-                    </div>
-                </div>
 
-                <!-- Nuove voci Spese: ZTL e Tasse/Frontiera -->
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">ZTL (€)</label>
-                        <input type="number" step="0.01" id="input_ztl" placeholder="0.00" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3 py-2.5 text-white text-sm font-semibold">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Tasse / Frontiera (€)</label>
-                        <input type="number" step="0.01" id="input_tasse_frontiera" placeholder="0.00" class="w-full bg-slate-800 border border-slate-700/60 rounded-xl px-3 py-2.5 text-white text-sm font-semibold">
+                    <!-- Pulsanti di aggiunta rapida -->
+                    <div class="grid grid-cols-3 gap-1.5 pt-1">
+                        <button onclick="aggiungiSpesaDinamica('PARCHEGGIO', '', '')" class="bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-500/20 py-2 rounded-lg text-[10px] font-extrabold transition-all uppercase">
+                            ➕ Parcheggio
+                        </button>
+                        <button onclick="aggiungiSpesaDinamica('ZTL', '', '')" class="bg-purple-600/10 hover:bg-purple-600/20 text-purple-400 border border-purple-500/20 py-2 rounded-lg text-[10px] font-extrabold transition-all uppercase">
+                            ➕ ZTL
+                        </button>
+                        <button onclick="aggiungiSpesaDinamica('TASSA/FRONTIERA', '', '')" class="bg-amber-600/10 hover:bg-amber-600/20 text-amber-400 border border-amber-500/20 py-2 rounded-lg text-[10px] font-extrabold transition-all uppercase">
+                            ➕ Tassa
+                        </button>
                     </div>
                 </div>
 
@@ -328,7 +326,7 @@
 
     <!-- ------------------------------------------------------------------- -->
     <!-- STRUTTURA DEL DOCUMENTO FINALE A4 DA STAMPARE (HIDDEN IN APP SCREEN) -->
-    <!-- Modificato: Rimosso blocco Firma Autista (Parametro 6)              -->
+    <!-- Modificato: Rimosso blocco Firma Autista                            -->
     <!-- ------------------------------------------------------------------- -->
     <div id="pdf-template" class="hidden">
         <div class="flex justify-between items-end border-b-2 border-slate-800 pb-3 mb-4">
@@ -431,7 +429,7 @@
             </table>
         </div>
 
-        <!-- SEZIONE ALLEGATI SCONTRINI NEL PDF (Parametro 4) -->
+        <!-- SEZIONE ALLEGATI SCONTRINI NEL PDF -->
         <div id="pdf_sezione_scontrini" class="mt-8">
             <span class="block text-[9pt] font-extrabold uppercase tracking-wider text-slate-800 border-b border-slate-300 pb-1 mb-3">Allegati Ricevute e Scontrini</span>
             <div id="pdf_galleria_scontrini" class="grid grid-cols-2 gap-4">
@@ -441,7 +439,7 @@
     </div>
 
     <!-- ------------------------------------------------------------------- -->
-    <!-- NUOVO TEMPLATE: PDF RESOCONTO GENERALE DI FINE TOUR (Parametro 8)   -->
+    <!-- TEMPLATE: PDF RESOCONTO GENERALE DI FINE TOUR                       -->
     <!-- ------------------------------------------------------------------- -->
     <div id="pdf-summary-template" class="hidden">
         <div class="flex justify-between items-end border-b-2 border-slate-800 pb-3 mb-4">
@@ -542,9 +540,13 @@
         // Callback globale per la gestione dei popup di conferma
         let globalConfirmCallback = null;
         
-        // Memoria locale del Tour corrente per gestire il riepilogo multi-giorno (Parametro 8)
+        // Memoria locale del Tour corrente per gestire il riepilogo multi-giorno
         let storicoTourGiorni = [];
         let fotoScontriniCorrenti = [];
+        
+        // Array dinamico delle spese speciali del giorno correntemente editato
+        // Ogni elemento: { id: Date.now(), tipo: 'PARCHEGGIO' | 'ZTL' | 'TASSA/FRONTIERA', localita: '', importo: 0 }
+        let registroSpeseDinamiche = [];
 
         // Caricamento e configurazione iniziale dell'applicazione
         window.addEventListener("DOMContentLoaded", () => {
@@ -558,18 +560,22 @@
             caricaDatiLocalStorage();
             attivazioneMaiuscoloIstantaneo();
             collegaCalcoliInTempoReale();
+            renderSpeseDinamiche();
         });
 
-        // Forza la conversione in maiuscolo e memorizza in tempo reale
+        // Forza la conversione in maiuscolo quando si esce dalla casella (Evita il blocco dello SPAZIO)
         function attivazioneMaiuscoloIstantaneo() {
-            const inputTesto = ["input_autista", "input_bus", "input_targa", "input_cliente", "input_viaggio", "input_tratta_inizio", "input_tratta_fine", "input_parcheggio_loc", "input_carta_gasolio_man", "input_carta_adblue_man"];
+            const inputTesto = ["input_autista", "input_bus", "input_targa", "input_cliente", "input_viaggio", "input_tratta_inizio", "input_tratta_fine", "input_carta_gasolio_man", "input_carta_adblue_man"];
             inputTesto.forEach(id => {
                 const elemento = document.getElementById(id);
                 if (elemento) {
-                    elemento.addEventListener("input", function() {
+                    elemento.addEventListener("change", function() {
                         this.value = this.value.toUpperCase();
                         salvaDatiLocalStorage();
                         aggiornaTitoloDocumento();
+                    });
+                    elemento.addEventListener("input", function() {
+                        salvaDatiLocalStorage();
                     });
                 }
             });
@@ -588,7 +594,7 @@
             }
         }
 
-        // Gestione visibilità campi manuali per carte carburante (Parametro 5)
+        // Gestione visibilità campi manuali per carte carburante
         function gestisciCarta(tipo) {
             const select = document.getElementById(`select_carta_${tipo}`);
             const inputMan = document.getElementById(`input_carta_${tipo}_man`);
@@ -601,7 +607,71 @@
             salvaDatiLocalStorage();
         }
 
-        // Gestione caricamento foto scontrini illimitati (Parametro 4)
+        // --- SISTEMA DI AGGIUNTA E GESTIONE SPESE DINAMICHE ---
+        function aggiungiSpesaDinamica(tipo, localita = "", importo = "") {
+            const nuovaSpesa = {
+                id: Date.now() + Math.random().toString(36).substring(2, 7), // ID unico di sicurezza
+                tipo: tipo, // 'PARCHEGGIO' | 'ZTL' | 'TASSA/FRONTIERA'
+                localita: localita,
+                importo: importo
+            };
+            registroSpeseDinamiche.push(nuovaSpesa);
+            renderSpeseDinamiche();
+            salvaDatiLocalStorage();
+        }
+
+        function rimuoviSpesaDinamica(id) {
+            registroSpeseDinamiche = registroSpeseDinamiche.filter(spesa => spesa.id !== id);
+            renderSpeseDinamiche();
+            salvaDatiLocalStorage();
+        }
+
+        function aggiornaValoreSpesaDinamica(id, campo, valore) {
+            const spesa = registroSpeseDinamiche.find(s => s.id === id);
+            if (spesa) {
+                if (campo === "localita") {
+                    spesa.localita = valore.toUpperCase();
+                } else if (campo === "importo") {
+                    spesa.importo = parseFloat(valore) || 0;
+                }
+                salvaDatiLocalStorage();
+            }
+        }
+
+        function renderSpeseDinamiche() {
+            const container = document.getElementById("container_spese_dinamiche");
+            container.innerHTML = "";
+
+            if (registroSpeseDinamiche.length === 0) {
+                container.innerHTML = `<p class="text-[10px] text-slate-500 italic text-center py-2">Nessun costo accessorio inserito oggi</p>`;
+                return;
+            }
+
+            registroSpeseDinamiche.forEach(spesa => {
+                const div = document.createElement("div");
+                div.className = "flex gap-2 items-center bg-slate-900 p-2.5 rounded-xl border border-slate-800 shadow-md";
+                
+                // Imposta colore etichetta in base al tipo
+                let badgeColor = "text-blue-400 bg-blue-500/10 border-blue-500/20";
+                if (spesa.tipo === "ZTL") badgeColor = "text-purple-400 bg-purple-500/10 border-purple-500/20";
+                if (spesa.tipo === "TASSA/FRONTIERA") badgeColor = "text-amber-400 bg-amber-500/10 border-amber-500/20";
+
+                div.innerHTML = `
+                    <div class="text-[9px] font-extrabold px-2 py-1 rounded-md border uppercase shrink-0 ${badgeColor} w-20 text-center">
+                        ${spesa.tipo === "TASSA/FRONTIERA" ? "TASSA" : spesa.tipo}
+                    </div>
+                    <input type="text" value="${spesa.localita}" placeholder="LOCALITÀ" onchange="aggiornaValoreSpesaDinamica('${spesa.id}', 'localita', this.value); this.value = this.value.toUpperCase();" class="w-full bg-slate-800 border border-slate-700/60 rounded-lg px-2 py-1.5 text-white text-xs font-semibold uppercase focus:outline-none focus:border-blue-500">
+                    <input type="number" step="0.01" value="${spesa.importo}" placeholder="€ 0.00" oninput="aggiornaValoreSpesaDinamica('${spesa.id}', 'importo', this.value)" class="w-20 bg-slate-800 border border-slate-700/60 rounded-lg px-2 py-1.5 text-white text-xs font-bold text-right focus:outline-none focus:border-blue-500">
+                    <button onclick="rimuoviSpesaDinamica('${spesa.id}')" class="text-red-500 hover:bg-red-500/10 p-1.5 rounded-lg font-bold text-xs shrink-0 transition-all select-none">
+                        ❌
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+        }
+        // -----------------------------------------------------
+
+        // Gestione caricamento foto scontrini illimitati
         function caricaFotoScontrini() {
             const fileInput = document.getElementById("input_foto_scontrino");
             const galleria = document.getElementById("container_anteprima_foto");
@@ -672,7 +742,7 @@
             prezzoAdblue.addEventListener("input", rilevaCambiamenti);
             dataInput.addEventListener("change", rilevaCambiamenti);
 
-            const altreSpese = ["input_parcheggio", "input_parcheggio_loc", "input_ztl", "input_tasse_frontiera", "input_pasti", "input_hotel", "input_varie", "input_acconto"];
+            const altreSpese = ["input_pasti", "input_hotel", "input_varie", "input_acconto"];
             altreSpese.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.addEventListener("input", salvaDatiLocalStorage);
@@ -687,7 +757,10 @@
                 localStorage.setItem("fv_autista", document.getElementById("input_autista").value);
                 localStorage.setItem("fv_bus", document.getElementById("input_bus").value);
                 localStorage.setItem("fv_targa", document.getElementById("input_targa").value);
-                localStorage.setItem("fv_data", document.getElementById("input_data").value);
+                
+                const dataSaved = document.getElementById("input_data").value;
+                if (dataSaved) localStorage.setItem("fv_data", dataSaved);
+
                 localStorage.setItem("fv_cliente", document.getElementById("input_cliente").value);
                 localStorage.setItem("fv_viaggio", document.getElementById("input_viaggio").value);
                 localStorage.setItem("fv_tratta_inizio", document.getElementById("input_tratta_inizio").value);
@@ -695,11 +768,6 @@
                 localStorage.setItem("fv_km_partenza", document.getElementById("input_km_partenza").value);
                 localStorage.setItem("fv_km_arrivo", document.getElementById("input_km_arrivo").value);
                 localStorage.setItem("fv_acconto", document.getElementById("input_acconto").value);
-
-                localStorage.setItem("fv_spesa_parcheggio", document.getElementById("input_parcheggio").value);
-                localStorage.setItem("fv_spesa_parcheggio_loc", document.getElementById("input_parcheggio_loc").value);
-                localStorage.setItem("fv_spesa_ztl", document.getElementById("input_ztl").value);
-                localStorage.setItem("fv_spesa_tasse_frontiera", document.getElementById("input_tasse_frontiera").value);
                 
                 localStorage.setItem("fv_spesa_gasolio_litri", document.getElementById("input_gasolio_litri").value);
                 localStorage.setItem("fv_spesa_gasolio_prezzo", document.getElementById("input_gasolio_prezzo").value);
@@ -718,6 +786,9 @@
                 localStorage.setItem("fv_opt_hide_zero", document.getElementById("opt_hide_zero").checked ? "1" : "0");
                 localStorage.setItem("fv_storico_tour", JSON.stringify(storicoTourGiorni));
                 localStorage.setItem("fv_foto_scontrini", JSON.stringify(fotoScontriniCorrenti));
+                
+                // Salva le spese dinamiche in formato stringa JSON
+                localStorage.setItem("fv_spese_dinamiche", JSON.stringify(registroSpeseDinamiche));
             } catch(e) {
                 console.error("LocalStorage non accessibile:", e);
             }
@@ -740,11 +811,6 @@
                 document.getElementById("input_km_partenza").value = localStorage.getItem("fv_km_partenza") || "";
                 document.getElementById("input_km_arrivo").value = localStorage.getItem("fv_km_arrivo") || "";
                 document.getElementById("input_acconto").value = localStorage.getItem("fv_acconto") || "";
-
-                document.getElementById("input_parcheggio").value = localStorage.getItem("fv_spesa_parcheggio") || "";
-                document.getElementById("input_parcheggio_loc").value = localStorage.getItem("fv_spesa_parcheggio_loc") || "";
-                document.getElementById("input_ztl").value = localStorage.getItem("fv_spesa_ztl") || "";
-                document.getElementById("input_tasse_frontiera").value = localStorage.getItem("fv_spesa_tasse_frontiera") || "";
                 
                 document.getElementById("input_gasolio_litri").value = localStorage.getItem("fv_spesa_gasolio_litri") || "";
                 document.getElementById("input_gasolio_prezzo").value = localStorage.getItem("fv_spesa_gasolio_prezzo") || "";
@@ -767,6 +833,7 @@
 
                 storicoTourGiorni = JSON.parse(localStorage.getItem("fv_storico_tour")) || [];
                 fotoScontriniCorrenti = JSON.parse(localStorage.getItem("fv_foto_scontrini")) || [];
+                registroSpeseDinamiche = JSON.parse(localStorage.getItem("fv_spese_dinamiche")) || [];
 
                 // Rigenera galleria fotografica anteprime nell'app
                 const galleria = document.getElementById("container_anteprima_foto");
@@ -827,10 +894,6 @@
                     document.getElementById("input_km_arrivo").value = "";
                     document.getElementById("input_acconto").value = "";
 
-                    document.getElementById("input_parcheggio").value = "";
-                    document.getElementById("input_parcheggio_loc").value = "";
-                    document.getElementById("input_ztl").value = "";
-                    document.getElementById("input_tasse_frontiera").value = "";
                     document.getElementById("input_gasolio_litri").value = "";
                     document.getElementById("input_gasolio_prezzo").value = "";
                     document.getElementById("select_carta_gasolio").value = "NESSUNA";
@@ -846,6 +909,8 @@
                     document.getElementById("container_anteprima_foto").innerHTML = "";
                     fotoScontriniCorrenti = [];
                     storicoTourGiorni = [];
+                    registroSpeseDinamiche = [];
+                    renderSpeseDinamiche();
 
                     const oggi = new Date();
                     document.getElementById("input_data").value = oggi.toISOString().split('T')[0];
@@ -858,7 +923,7 @@
             );
         }
 
-        // Salva la tappa odierna nello storico cumulativo prima di azzerare i campi (Parametro 8)
+        // Salva la tappa odierna nello storico cumulativo prima di azzerare i campi
         function salvaTappaInStorico() {
             const dataVal = document.getElementById("input_data").value;
             const trattaInizio = document.getElementById("input_tratta_inizio").value.trim() || "-";
@@ -866,10 +931,7 @@
             const kmPart = parseFloat(document.getElementById("input_km_partenza").value) || 0;
             const kmArr = parseFloat(document.getElementById("input_km_arrivo").value) || 0;
             
-            // Estrazione spese correnti
-            const parch = parseFloat(document.getElementById("input_parcheggio").value) || 0;
-            const ztl = parseFloat(document.getElementById("input_ztl").value) || 0;
-            const tasse = parseFloat(document.getElementById("input_tasse_frontiera").value) || 0;
+            // Estrazione spese fisse
             const pasti = parseFloat(document.getElementById("input_pasti").value) || 0;
             const hotel = parseFloat(document.getElementById("input_hotel").value) || 0;
             const varie = parseFloat(document.getElementById("input_varie").value) || 0;
@@ -881,6 +943,18 @@
             const litA = parseFloat(document.getElementById("input_adblue_litri").value) || 0;
             const prcA = parseFloat(document.getElementById("input_adblue_prezzo").value) || 0;
             const adblue = Math.round(litA * prcA * 100) / 100;
+
+            // Raggruppa e somma spese dinamiche del giorno per confluire correttamente nelle macrovoci di riepilogo
+            let parch = 0;
+            let ztl = 0;
+            let tasse = 0;
+
+            registroSpeseDinamiche.forEach(spesa => {
+                const importoFloat = parseFloat(spesa.importo) || 0;
+                if (spesa.tipo === "PARCHEGGIO") parch += importoFloat;
+                else if (spesa.tipo === "ZTL") ztl += importoFloat;
+                else if (spesa.tipo === "TASSA/FRONTIERA") tasse += importoFloat;
+            });
 
             storicoTourGiorni.push({
                 data: dataVal,
@@ -913,11 +987,7 @@
             document.getElementById("input_tratta_inizio").value = fineTratta;
             document.getElementById("input_tratta_fine").value = "";
 
-            // Reset delle sole spese giornaliere e del contenitore foto temporaneo
-            document.getElementById("input_parcheggio").value = "";
-            document.getElementById("input_parcheggio_loc").value = "";
-            document.getElementById("input_ztl").value = "";
-            document.getElementById("input_tasse_frontiera").value = "";
+            // Reset delle spese fisse
             document.getElementById("input_gasolio_litri").value = "";
             document.getElementById("input_gasolio_prezzo").value = "";
             document.getElementById("select_carta_gasolio").value = "NESSUNA";
@@ -929,6 +999,10 @@
             document.getElementById("input_pasti").value = "";
             document.getElementById("input_hotel").value = "";
             document.getElementById("input_varie").value = "";
+            
+            // Azzera il registro delle spese dinamiche giornaliero
+            registroSpeseDinamiche = [];
+            renderSpeseDinamiche();
             
             // Avanza automaticamente la data inserita di 1 giorno
             const dataCorrente = new Date(document.getElementById("input_data").value);
@@ -970,7 +1044,7 @@
             );
         }
 
-        // Genera il PDF di chiusura con KM divisi per giorni e spese aggregate (Parametro 8)
+        // Genera il PDF di chiusura con KM divisi per giorni e spese aggregate
         function lanciaStampaRiepilogoGenerale() {
             const autista = document.getElementById("input_autista").value.trim() || "AUTISTA";
             const cliente = document.getElementById("input_cliente").value.trim() || "AGENZIA";
@@ -1043,7 +1117,7 @@
             `;
             speseTbody.appendChild(trTot);
 
-            // Modifica titolo temporaneo del documento per il salvataggio del Riepilogo (Parametro 8)
+            // Modifica titolo temporaneo del documento per il salvataggio del Riepilogo
             const mesi = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
             const meseCorrente = mesi[new Date().getMonth()];
             document.title = `${autista}-${cliente}-${meseCorrente}`.toLowerCase().replace(/\s+/g, '-');
@@ -1076,7 +1150,7 @@
 
             const optHideZero = document.getElementById("opt_hide_zero").checked;
 
-            // Formattazione data inserita manualmente o automatica (Parametro 1)
+            // Formattazione data inserita manualmente o automatica
             const dataVal = document.getElementById("input_data").value;
             let dataStringa = "-";
             if (dataVal) {
@@ -1104,30 +1178,31 @@
 
             let sommaTotaleSpese = 0;
 
-            // 1. Spesa Parcheggio + Località (Parametro 2)
-            const valParcheggio = parseFloat(document.getElementById("input_parcheggio").value) || 0;
-            const locParcheggio = document.getElementById("input_parcheggio_loc").value.trim();
-            if (!(optHideZero && valParcheggio === 0)) {
-                sommaTotaleSpese += valParcheggio;
-                const dettaglioparch = locParcheggio ? `Ticket parcheggio bus città (Località: ${locParcheggio.toUpperCase()})` : "Ticket parcheggio e checkpoint bus";
-                inserisciRigaSpesa(tbody, dataStringa, "Parcheggio Bus / Checkpoint", dettaglioparch, valParcheggio);
-            }
+            // 1. INSERISCE TUTTE LE SPESE DINAMICHE CARICATE (Parcheggi, ZTL, Tasse)
+            registroSpeseDinamiche.forEach(spesa => {
+                const importoFloat = parseFloat(spesa.importo) || 0;
+                if (!(optHideZero && importoFloat === 0)) {
+                    sommaTotaleSpese += importoFloat;
+                    
+                    let descrizioneDettaglio = "";
+                    let tipoVisualizzato = "";
+                    
+                    if (spesa.tipo === "PARCHEGGIO") {
+                        tipoVisualizzato = "Parcheggio Bus / Checkpoint";
+                        descrizioneDettaglio = spesa.localita ? `Sosta in parcheggio autorizzato (Località: ${spesa.localita})` : "Ticket di sosta / parcheggio bus";
+                    } else if (spesa.tipo === "ZTL") {
+                        tipoVisualizzato = "ZTL";
+                        descrizioneDettaglio = spesa.localita ? `Accesso varco controllato ZTL (Località: ${spesa.localita})` : "Oneri accesso ZTL / centro urbano";
+                    } else if (spesa.tipo === "TASSA/FRONTIERA") {
+                        tipoVisualizzato = "Tasse / Frontiera";
+                        descrizioneDettaglio = spesa.localita ? `Oneri transito transfrontaliero (Dogana: ${spesa.localita})` : "Tasse transito stradale / frontiera doganale";
+                    }
 
-            // 2. Nuova voce: ZTL (Parametro 2)
-            const valZtl = parseFloat(document.getElementById("input_ztl").value) || 0;
-            if (!(optHideZero && valZtl === 0)) {
-                sommaTotaleSpese += valZtl;
-                inserisciRigaSpesa(tbody, dataStringa, "ZTL", "Accesso autorizzato ZTL / ticket centro urbano", valZtl);
-            }
+                    inserisciRigaSpesa(tbody, dataStringa, tipoVisualizzato, descrizioneDettaglio, importoFloat);
+                }
+            });
 
-            // 3. Nuova voce: Tasse / Frontiera (Parametro 2)
-            const valTasse = parseFloat(document.getElementById("input_tasse_frontiera").value) || 0;
-            if (!(optHideZero && valTasse === 0)) {
-                sommaTotaleSpese += valTasse;
-                inserisciRigaSpesa(tbody, dataStringa, "Tasse / Frontiera", "Oneri transito transfrontaliero / dogana", valTasse);
-            }
-
-            // 4. Spesa Gasolio con indicazione Carta Preset (Parametro 5)
+            // 2. Spesa Gasolio con indicazione Carta Preset
             const litriG = parseFloat(document.getElementById("input_gasolio_litri").value) || 0;
             const prezzoG = parseFloat(document.getElementById("input_gasolio_prezzo").value) || 0;
             const cartaGasSel = document.getElementById("select_carta_gasolio").value;
@@ -1141,7 +1216,7 @@
                 inserisciRigaSpesa(tbody, dataStringa, "Rifornimento Gasolio", descGasolio, valGasolio);
             }
 
-            // 5. Spesa AdBlue con indicazione Carta Preset (Parametro 5)
+            // 3. Spesa AdBlue con indicazione Carta Preset
             const litriA = parseFloat(document.getElementById("input_adblue_litri").value) || 0;
             const prezzoA = parseFloat(document.getElementById("input_adblue_prezzo").value) || 0;
             const cartaAdSel = document.getElementById("select_carta_adblue").value;
@@ -1155,21 +1230,21 @@
                 inserisciRigaSpesa(tbody, dataStringa, "Rifornimento AdBlue", descAdblue, valAdblue);
             }
 
-            // 6. Spesa Pasti
+            // 4. Spesa Pasti
             const valPasti = parseFloat(document.getElementById("input_pasti").value) || 0;
             if (!(optHideZero && valPasti === 0)) {
                 sommaTotaleSpese += valPasti;
                 inserisciRigaSpesa(tbody, dataStringa, "Pasti", "Vitto autista", valPasti);
             }
 
-            // 7. Spesa Hotel
+            // 5. Spesa Hotel
             const valHotel = parseFloat(document.getElementById("input_hotel").value) || 0;
             if (!(optHideZero && valHotel === 0)) {
                 sommaTotaleSpese += valHotel;
                 inserisciRigaSpesa(tbody, dataStringa, "Hotel / Alloggio", "Pernottamento autista", valHotel);
             }
 
-            // 8. Spesa Varie
+            // 6. Spesa Varie
             const valVarie = parseFloat(document.getElementById("input_varie").value) || 0;
             if (!(optHideZero && valVarie === 0)) {
                 sommaTotaleSpese += valVarie;
@@ -1182,7 +1257,7 @@
 
             document.getElementById("pdf_val_totale_spese").innerText = `€ ${sommaTotaleSpese.toFixed(2).replace('.', ',')}`;
 
-            // Rendering allegati fotografici scontrini illimitati nel documento finale (Parametro 4)
+            // Rendering allegati fotografici scontrini illimitati nel documento finale
             const pdfGalleria = document.getElementById("pdf_galleria_scontrini");
             pdfGalleria.innerHTML = "";
             if (fotoScontriniCorrenti.length > 0) {
